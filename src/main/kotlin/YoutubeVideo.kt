@@ -14,6 +14,7 @@ data class YoutubeVideo(
     val time: Date,
     val title: String,
     val titleUrl: String? = null,
+    var timesWatched: Int? = null
 )
 
 @Serializable

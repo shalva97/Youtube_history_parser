@@ -4,6 +4,7 @@ plugins {
     kotlin("jvm") version "1.5.0"
     kotlin("plugin.serialization") version "1.5.0"
     application
+    id("groovy")
 }
 
 group = "me.shalva"
@@ -14,6 +15,7 @@ repositories {
 }
 
 dependencies {
+    implementation("junit:junit:4.13.1")
     testImplementation(kotlin("test-junit"))
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.2.1")
 }
