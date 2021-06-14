@@ -22,24 +22,14 @@ fun main(args: Array<String>) {
                 val monthName = dateFormatMonth.format(pair.second.first().time)
                 val currentMonth = currentYear.history.firstOrNull() { it.monthName == monthName }
                 if (currentMonth != null) {
-                    currentMonth.musicList.add(pair.second.first().also { it.timesWatched = pair.second.size })
+                    currentMonth.addVideo(pair.second.first(), pair.second.size)
                 } else {
-                    currentYear.history.add(
-                        Month(
-                            dateFormatMonth.format(pair.second.first().time),
-                            mutableListOf(pair.second.first().also { it.timesWatched = pair.second.size })
-                        )
-                    )
+                    currentYear.history.add(Month(pair.second))
                 }
             } else {
                 acc.add(
                     Year(
-                        dateFormatYear.format(pair.second.first().time), mutableListOf(
-                            Month(
-                                dateFormatMonth.format(pair.second.first().time),
-                                mutableListOf(pair.second.first().also { it.timesWatched = pair.second.size })
-                            )
-                        )
+                        dateFormatYear.format(pair.second.first().time), mutableListOf(Month(pair.second))
                     )
                 )
             }
@@ -50,22 +40,11 @@ fun main(args: Array<String>) {
             println("### " + year.yearName)
             println()
             year.history.forEach { month ->
-                println("#### ${month.monthName}")
-                println()
-                month.musicList.forEach {
-//                    println("${it.title} - ${it.titleUrl} ${it.timesWatched}")
-                    println(" - [${it.title.replace("Watched ", "")} - ${it.timesWatched}](${it.titleUrl})")
-                    println()
-                }
+                println(month)
             }
         }
 //        .run(::println)
 }
-
-data class Month(
-    val monthName: String,
-    val musicList: MutableList<YoutubeVideo>
-)
 
 data class Year(
     val yearName: String,

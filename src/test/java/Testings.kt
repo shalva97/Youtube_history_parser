@@ -5,13 +5,12 @@ class Testing {
     private val videos = getVideoHistoryJSON("testData.json")
 
     @Test
-    fun `resources file loads okay`() {
+    fun `resources file loads`() {
         assert(videos.isNotEmpty())
     }
 
     @Test
     fun `sort by most watched urls`() {
-
         assert(sortVideos(videos).isNotEmpty())
         assert(sortVideos(videos).size == 2)
     }
