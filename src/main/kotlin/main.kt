@@ -1,13 +1,7 @@
-import java.text.SimpleDateFormat
+import models.Year
 
 fun main(args: Array<String>) {
-    val dateFormatYear = SimpleDateFormat("yyyy")
-    val dateFormatMonth = SimpleDateFormat("MMM")
     val listOfYTYoutubeVideos = getVideoHistoryJSON("watch-history.json")
-//    val listOfYTYoutubeVideos = getVideoHistoryJSON("testData.json")
-
-
-    var state: String = ""
 
     listOfYTYoutubeVideos
         .reversed()
@@ -17,36 +11,16 @@ fun main(args: Array<String>) {
         .toList()
         .sortedByDescending { it.second.size }
         .fold(mutableListOf<Year>()) { acc, pair ->
-            val currentYear = acc.firstOrNull { it.yearName == dateFormatYear.format(pair.second.first().time) }
+            val currentYear = acc.firstOrNull { it.year == Year.formatDateAsYear(pair.second.first().time).toInt() }
             if (currentYear != null) {
-                val monthName = dateFormatMonth.format(pair.second.first().time)
-                val currentMonth = currentYear.history.firstOrNull() { it.monthName == monthName }
-                if (currentMonth != null) {
-                    currentMonth.addVideo(pair.second.first(), pair.second.size)
-                } else {
-                    currentYear.history.add(Month(pair.second))
-                }
+                currentYear.addMonth(pair.second.first(), pair.second.size)
             } else {
-                acc.add(
-                    Year(
-                        dateFormatYear.format(pair.second.first().time), mutableListOf(Month(pair.second))
-                    )
-                )
+                acc.add(Year(pair.second.first(), pair.second.size))
             }
             acc
         }.sortedBy {
-            it.yearName.toInt()
+            it.year
         }.forEach { year ->
-            println("### " + year.yearName)
-            println()
-            year.history.forEach { month ->
-                println(month)
-            }
+            print(year)
         }
-//        .run(::println)
 }
-
-data class Year(
-    val yearName: String,
-    val history: MutableList<Month>
-)

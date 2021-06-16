@@ -1,19 +1,15 @@
+package models
+
+import YoutubeVideo
 import java.text.SimpleDateFormat
 
-class Month(videos: List<YoutubeVideo>) {
-    val monthName: String
-    val musicList: MutableList<YoutubeVideoWithTimesWatched>
+class Month(video: YoutubeVideo, timesWatched: Int) {
 
-    init {
-        val firstVideo = videos.first()
-        monthName = dateFormatMonth.format(firstVideo.time)
-        musicList = mutableListOf(firstVideo to videos.size)
-    }
+    val monthName: String = dateFormatMonth.format(video.time)
+    private val musicList: MutableList<YoutubeVideoWithTimesWatched> = mutableListOf(video to timesWatched)
 
     fun addVideo(video: YoutubeVideo, timesWatched: Int) {
-        musicList.add(
-            video to timesWatched
-        )
+        musicList.add(video to timesWatched)
     }
 
     override fun toString(): String {
@@ -35,6 +31,10 @@ class Month(videos: List<YoutubeVideo>) {
     }
 
     companion object {
+        fun getMonthName(video: YoutubeVideo): String {
+            return dateFormatMonth.format(video.time)
+        }
+
         private val dateFormatMonth = SimpleDateFormat("MMM")
         private const val VIDEO_PREFIX = "Watched "
     }
