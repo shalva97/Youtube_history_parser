@@ -25,7 +25,7 @@ class Year(videos: YoutubeVideo, timesWatched: Int) {
 
     override fun toString(): String {
         val output = StringBuilder()
-        output.appendLine(year)
+        output.appendLine("## $year")
         output.appendLine()
         history.forEach {
             output.appendLine(it)
