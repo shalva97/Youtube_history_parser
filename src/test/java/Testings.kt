@@ -1,4 +1,5 @@
 import org.junit.Test
+import java.time.Duration
 
 class Testing {
 
@@ -13,6 +14,16 @@ class Testing {
     fun `sort by most watched urls`() {
         assert(sortVideos(videos).isNotEmpty())
         assert(sortVideos(videos).size == 2)
+        // TODO
+    }
+
+    @Test
+    fun `video length check`() {
+        val videoLengthProvider = VideoLengthProvider()
+
+        assert(videoLengthProvider.getVideoDurationByID("072VUBj4x04") == Duration.ofSeconds(199))
+        assert(videoLengthProvider.getVideoDurationByID("qhnAiiWOARQ") == Duration.ofSeconds(36))
+        assert(videoLengthProvider.getVideoDurationByID("_Kmh4BbJPz8") == Duration.ofSeconds(31))
     }
 
 }
