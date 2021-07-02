@@ -18,7 +18,7 @@ class VideoLengthProvider {
         val regex = Regex("lengthSeconds.{3}([0-9].+?)\"")
 
         val result = regex.find(resp.toString())
-        return Duration.ofSeconds(result!!.groupValues[1].toLong())
+        return Duration.ofSeconds(result?.groupValues?.get(1)?.toLong() ?: 0L)
     }
 
     private fun createRequest(videoID: String): Request {

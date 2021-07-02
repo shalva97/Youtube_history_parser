@@ -25,6 +25,18 @@ fun main(args: Array<String>) {
             }
         }.run(::format)
 
+    val totalTimeWatchedFor10Plus = parsedData.sortedByDescending { it.second.size }
+        .fold(Duration.ZERO) { accumulator: Duration, videoData: Pair<String?, List<YoutubeVideo>> ->
+            val titleUrl = videoData.second.first().titleUrl
+            if (titleUrl != null) {
+                val videoDurationByURL =
+                    videoLengthProvider.getVideoDurationByURL(titleUrl).multipliedBy(videoData.second.size.toLong())
+                accumulator.plus(videoDurationByURL)
+            } else {
+                accumulator
+            }
+        }.run(::format)
+
     println("# TOP 10")
     println("### watch time of these: $timesWatchedTOP10")
 
@@ -36,6 +48,8 @@ fun main(args: Array<String>) {
             println(" - [${currentVideo.title.replace("Watched ", "")} - ${it.second.size}](${currentVideo.titleUrl})")
         }
 
+    println()
+    println("total time watched for 10+ videos: $totalTimeWatchedFor10Plus")
     println()
 
     parsedData.sortedByDescending { it.second.size }
