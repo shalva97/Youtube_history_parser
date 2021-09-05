@@ -16,7 +16,7 @@ This app shows your youtube history, grouped by months and sorted by watch count
 
 # Recover removed videos
 - you can use google to find video name by url. Then search the name and you will find many similar videos
-- also try [this](https://archivarix.com/en/blog/download-deleted-youtube-videos/)
+- these websites maybe helpful: [quiteaplaylist](https://quiteaplaylist.com) and [this post on archivarix](https://archivarix.com/en/blog/download-deleted-youtube-videos/)
 
 # this is what it looks like
 ![image](https://user-images.githubusercontent.com/22417494/124386451-89aa5980-dceb-11eb-8cd3-1d8fec57ad9a.png)
