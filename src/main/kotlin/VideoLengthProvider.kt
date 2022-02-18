@@ -3,6 +3,7 @@ import okhttp3.Request
 import java.time.Duration
 
 class VideoLengthProvider {
+
     private val httpClient = OkHttpClient()
 
     fun getVideoDurationByURL(videoUrl: String): Duration {

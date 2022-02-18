@@ -82,3 +82,7 @@ fun format(du: Duration): String {
             (if (minutes == 0L) "" else "$minutes minutes, ") +
             if (seconds == 0L) "" else "$seconds seconde"
 }
+
+fun main2() {
+
+}

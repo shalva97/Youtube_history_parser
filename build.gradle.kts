@@ -15,10 +15,10 @@ repositories {
 }
 
 dependencies {
-    implementation("junit:junit:4.13.1")
+    implementation("junit:junit:4.13.2")
     testImplementation(kotlin("test-junit"))
-    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.2.1")
-    implementation("com.squareup.okhttp3:okhttp:4.9.0")
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.3.2")
+    implementation("com.squareup.okhttp3:okhttp:4.9.3")
 }
 
 tasks.test {
