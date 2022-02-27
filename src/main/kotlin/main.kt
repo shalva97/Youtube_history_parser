@@ -1,4 +1,11 @@
+import kotlinx.serialization.decodeFromString
+import kotlinx.serialization.json.Json
+import models.LostLinkName
 import models.Year
+import java.net.URI
+import java.net.http.HttpClient
+import java.net.http.HttpRequest
+import java.net.http.HttpResponse
 import java.time.Duration
 
 fun main(args: Array<String>) {
@@ -66,6 +73,38 @@ fun main(args: Array<String>) {
         }.forEach { year ->
             print(year)
         }
+    var showUnavailable = false;
+    if (args.isNotEmpty()){
+        for (arg in args){
+            if (arg == "--unavailable"){
+                showUnavailable = true;
+            }
+        }
+    }
+    if (showUnavailable){
+        println()
+        println("unavailable videos in your watch-history:")
+        fun getVideoName(url :String) :String {
+            val uRL = "https://wb.shubhamnh.workers.dev/$url";
+            val client = HttpClient.newBuilder().build();
+            val request = HttpRequest.newBuilder(URI.create(uRL)).build();
+            val rawJson :String = client.send(request, HttpResponse.BodyHandlers.ofString()).body();
+
+            val format = Json { ignoreUnknownKeys = true }
+            return format.decodeFromString<List<LostLinkName>>(rawJson)[0].title;
+        }
+        parsedData.sortedByDescending { it.second.size }
+            .forEach {
+                val currentVideo = it.second.first()
+                if (currentVideo.title.replace("Watched ", "") == currentVideo.titleUrl){
+                    println(
+                        " - [${
+                            getVideoName(currentVideo.titleUrl)
+                        } - ${it.second.size}](${currentVideo.titleUrl})"
+                    )
+                }
+            }
+    }
 }
 
 fun format(du: Duration): String {
