@@ -12,7 +12,7 @@ This app shows your youtube history, grouped by months and sorted by watch count
 7. extract `watch-history.json` file into projects directory  `/src/main/resources/watch-history.json`
 8. If you are on linux open console in projects root directory and execute `./gradlew run`
 9. If you are on windows open cmd in projects root directory and execute `gradlew.bat run`
-10. The output from the program is MD formatted, you can copy&ppaste it in your repo on Github or in Notion.
+10. The output from the program is MD formatted, you can copy&paste it in your repo on Github or in Notion.
 
 # Recover removed videos
 - you can use google to find video name by url. Then search the name and you will find many similar videos

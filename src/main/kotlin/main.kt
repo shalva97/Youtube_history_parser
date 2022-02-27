@@ -80,7 +80,7 @@ fun format(du: Duration): String {
     return (if (days == 0L) "" else "$days days, ") +
             (if (hours == 0L) "" else "$hours hours, ") +
             (if (minutes == 0L) "" else "$minutes minutes, ") +
-            if (seconds == 0L) "" else "$seconds seconde"
+            if (seconds == 0L) "" else "$seconds seconds"
 }
 
 fun main2() {
