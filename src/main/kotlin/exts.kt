@@ -1,8 +1,8 @@
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
 
-fun getResourceAsText(path: String): String {
-    return object {}.javaClass.getResource(path).readText()
+fun getResourceAsText(path: String): String? {
+    return object {}.javaClass.getResource(path)?.readText()
 }
 
 fun getVideoHistoryJSON(path: String): List<YoutubeVideo> {
@@ -11,5 +11,5 @@ fun getVideoHistoryJSON(path: String): List<YoutubeVideo> {
         ignoreUnknownKeys = true
     }
 
-    return parser.decodeFromString(rawJson)
+    return parser.decodeFromString(rawJson!!)
 }

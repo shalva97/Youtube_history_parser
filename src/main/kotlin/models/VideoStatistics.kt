@@ -1,11 +1,10 @@
 package models
 
-import YoutubeVideo
+import java.util.*
 
-class VideoStatistics(
-   private val video: List<YoutubeVideo>
-) {
-    val title = video.first().title
-    val firstTimeWatched = video.first().time
-    val timesClicked = video.size
-}
+data class VideoStatistics(
+    val title: String,
+    val firstTimeWatched: Date,
+    val timesClicked: Int,
+    val url: String,
+)

@@ -1,7 +1,7 @@
 import models.Year
 import java.time.Duration
 
-fun main(args: Array<String>) {
+fun main2(args: Array<String>) {
     val listOfYTYoutubeVideos = getVideoHistoryJSON("watch-history.json")
     val videoLengthProvider = VideoLengthProvider()
 
@@ -81,8 +81,4 @@ fun format(du: Duration): String {
             (if (hours == 0L) "" else "$hours hours, ") +
             (if (minutes == 0L) "" else "$minutes minutes, ") +
             if (seconds == 0L) "" else "$seconds seconds"
-}
-
-fun main2() {
-
 }
