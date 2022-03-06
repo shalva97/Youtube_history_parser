@@ -1,4 +1,3 @@
-import models.Year
 import java.time.Duration
 
 fun main2(args: Array<String>) {
@@ -52,20 +51,20 @@ fun main2(args: Array<String>) {
     println("total time watched for 10+ videos: $totalTimeWatchedFor10Plus")
     println()
 
-    parsedData.sortedByDescending { it.second.size }
-        .fold(mutableListOf<Year>()) { acc, pair ->
-            val currentYear = acc.firstOrNull { it.year == Year.formatDateAsYear(pair.second.first().time).toInt() }
-            if (currentYear != null) {
-                currentYear.addMonth(pair.second.first(), pair.second.size)
-            } else {
-                acc.add(Year(pair.second.first(), pair.second.size))
-            }
-            acc
-        }.sortedBy {
-            it.year
-        }.forEach { year ->
-            print(year)
-        }
+//time    parsedData.sortedByDescending { it.second.size }
+//        .fold(mutableListOf<Year>()) { acc, pair ->
+//            val currentYear = acc.firstOrNull { it.year == Year.formatDateAsYear(pair.second.first().time).toInt() }
+//            if (currentYear != null) {
+//                currentYear.addMonth(pair.second.first(), pair.second.size)
+//            } else {
+//                acc.add(Year(pair.second.first(), pair.second.size))
+//            }
+//            acc
+//        }.sortedBy {
+//            it.year
+//        }.forEach { year ->
+//            print(year)
+//        }
 }
 
 fun format(du: Duration): String {
