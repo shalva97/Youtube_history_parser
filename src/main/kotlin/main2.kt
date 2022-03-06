@@ -5,7 +5,9 @@ fun main() {
 
     val results = StringBuilder().apply {
         append("# TOP 10")
-        // TODO add time watched for top 10 videos
+        appendLine()
+        append("### " + youtubeHistory.totalTimeWatchedForTopTenVideos())
+        appendLine()
         append(youtubeHistory.getTopTenVideos())
         appendLine()
         // TODO total time watched for videos, which were clicked 10+ times

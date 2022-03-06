@@ -4,6 +4,7 @@ import VideoLengthProvider
 import YoutubeVideo
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
+import java.time.Duration
 
 class YoutubeHistory(
     val videoLengthProvider: VideoLengthProvider = VideoLengthProvider(),
@@ -74,5 +75,32 @@ class YoutubeHistory(
                 result.append(year)
             }
         return result.toString()
+    }
+
+    fun totalTimeWatchedForTopTenVideos(): String {
+        return videoStatistics.sortedByDescending { it.timesClicked }
+            .take(10)
+            .fold(Duration.ZERO) { accumulator: Duration, videoData ->
+                val videoDurationByURL =
+                    videoLengthProvider.getVideoDurationByURL(videoData.url)
+                        .multipliedBy(videoData.timesClicked.toLong())
+                accumulator.plus(videoDurationByURL)
+
+            }.run(::format)
+    }
+
+    private fun format(du: Duration): String {
+        var d = du
+        val days = d.toDays()
+        d = d.minusDays(days)
+        val hours = d.toHours()
+        d = d.minusHours(hours)
+        val minutes = d.toMinutes()
+        d = d.minusMinutes(minutes)
+        val seconds = d.seconds
+        return (if (days == 0L) "" else "$days days, ") +
+                (if (hours == 0L) "" else "$hours hours, ") +
+                (if (minutes == 0L) "" else "$minutes minutes, ") +
+                if (seconds == 0L) "" else "$seconds seconds"
     }
 }
