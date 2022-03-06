@@ -7,7 +7,7 @@ import kotlinx.serialization.json.Json
 import java.time.Duration
 
 class YoutubeHistory(
-    val videoLengthProvider: VideoLengthProvider = VideoLengthProvider(),
+    private val videoLengthProvider: VideoLengthProvider = VideoLengthProvider(),
     resourcePath: String = "watch-history.json",
     val minVideoClicks: Int = 10,
 ) {
@@ -49,9 +49,7 @@ class YoutubeHistory(
 
     fun getTopTenVideos(): String {
         val results = StringBuilder()
-        videoStatistics.sortedByDescending {
-            it.timesClicked
-        }.take(10).forEach {
+        topTenVideos().forEach {
             results.append("\n - [${it.title.replace("Watched ", "")} - ${it.timesClicked}](${it.url})")
         }
         return results.toString()
@@ -78,16 +76,18 @@ class YoutubeHistory(
     }
 
     fun totalTimeWatchedForTopTenVideos(): String {
-        return videoStatistics.sortedByDescending { it.timesClicked }
-            .take(10)
-            .fold(Duration.ZERO) { accumulator: Duration, videoData ->
-                val videoDurationByURL =
-                    videoLengthProvider.getVideoDurationByURL(videoData.url)
-                        .multipliedBy(videoData.timesClicked.toLong())
-                accumulator.plus(videoDurationByURL)
+        return topTenVideos().fold(Duration.ZERO) { accumulator: Duration, videoData ->
+            val videoDurationByURL =
+                videoLengthProvider.getVideoDurationByURL(videoData.url)
+                    .multipliedBy(videoData.timesClicked.toLong())
+            accumulator.plus(videoDurationByURL)
 
-            }.run(::format)
+        }.run(::format)
     }
+
+    private fun topTenVideos() = videoStatistics.sortedByDescending {
+        it.timesClicked
+    }.take(10)
 
     private fun format(du: Duration): String {
         var d = du
@@ -102,5 +102,14 @@ class YoutubeHistory(
                 (if (hours == 0L) "" else "$hours hours, ") +
                 (if (minutes == 0L) "" else "$minutes minutes, ") +
                 if (seconds == 0L) "" else "$seconds seconds"
+    }
+
+    fun totalTimeWatched(): String {
+        return videoStatistics.sortedByDescending { it.timesClicked }
+            .fold(Duration.ZERO) { accumulator: Duration, videoData ->
+                val videoDurationByURL = videoLengthProvider.getVideoDurationByURL(videoData.url)
+                    .multipliedBy(videoData.timesClicked.toLong())
+                accumulator.plus(videoDurationByURL)
+            }.run(::format)
     }
 }
