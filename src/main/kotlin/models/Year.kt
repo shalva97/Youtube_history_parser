@@ -1,25 +1,24 @@
 package models
 
-import YoutubeVideo
 import java.text.SimpleDateFormat
 import java.util.*
 
-class Year(videos: YoutubeVideo, timesWatched: Int) {
+class Year(videos: VideoStatistics) {
 
     private val history: MutableList<Month> = mutableListOf()
-    val year: Int = dateFormatYear.format(videos.time).toInt()
+    val year: Int = dateFormatYear.format(videos.firstTimeWatched).toInt()
 
     init {
-        history.add(Month(videos, timesWatched))
+        history.add(Month(videos))
     }
 
-    fun addMonth(video: YoutubeVideo, timesWatched: Int) {
+    fun addMonth(video: VideoStatistics) {
         val currentMonth = history.firstOrNull() { it.monthName == Month.getMonthName(video) }
 
         if (currentMonth != null) {
-            currentMonth.addVideo(video, timesWatched)
+            currentMonth.addVideo(video)
         } else {
-            history.add(Month(video, timesWatched))
+            history.add(Month(video))
         }
     }
 

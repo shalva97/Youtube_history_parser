@@ -9,11 +9,11 @@ import java.util.*
 @Serializable
 data class YoutubeVideo(
 //    val header: String,
-    val products: List<String>,
+//    val products: List<String>,
     @Serializable(with = DateSerializer::class)
     val time: Date,
     val title: String,
-    val titleUrl: String? = null
+    val titleUrl: String? = null,
 )
 
 @Serializable

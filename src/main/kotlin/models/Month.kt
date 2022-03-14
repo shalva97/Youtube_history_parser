@@ -1,15 +1,14 @@
 package models
 
-import YoutubeVideo
 import java.text.SimpleDateFormat
 
-class Month(video: YoutubeVideo, timesWatched: Int) {
+class Month(video: VideoStatistics) {
 
-    val monthName: String = dateFormatMonth.format(video.time)
-    private val musicList: MutableList<YoutubeVideoWithTimesWatched> = mutableListOf(video to timesWatched)
+    val monthName: String = dateFormatMonth.format(video.firstTimeWatched)
+    private val musicList: MutableList<VideoStatistics> = mutableListOf(video)
 
-    fun addVideo(video: YoutubeVideo, timesWatched: Int) {
-        musicList.add(video to timesWatched)
+    fun addVideo(video: VideoStatistics) {
+        musicList.add(video)
     }
 
     override fun toString(): String {
@@ -17,27 +16,25 @@ class Month(video: YoutubeVideo, timesWatched: Int) {
 
         stringBuilder.appendLine("### $monthName")
         stringBuilder.appendLine()
-        musicList.forEach { music: YoutubeVideoWithTimesWatched ->
+        musicList.forEach { music ->
             val name = getVideoName(music)
-            stringBuilder.appendLine(" - [$name - ${music.second}](${music.first.titleUrl})")
+            stringBuilder.appendLine(" - [$name - ${music.timesClicked}](${music.url})")
         }
         stringBuilder.appendLine()
 
         return stringBuilder.toString()
     }
 
-    private fun getVideoName(music: YoutubeVideoWithTimesWatched): String {
-        return music.first.title.replace(VIDEO_PREFIX, "")
+    private fun getVideoName(music: VideoStatistics): String {
+        return music.title.replace(VIDEO_PREFIX, "")
     }
 
     companion object {
-        fun getMonthName(video: YoutubeVideo): String {
-            return dateFormatMonth.format(video.time)
+        fun getMonthName(video: VideoStatistics): String {
+            return dateFormatMonth.format(video.firstTimeWatched)
         }
 
         private val dateFormatMonth = SimpleDateFormat("MMM")
         private const val VIDEO_PREFIX = "Watched "
     }
 }
-
-typealias YoutubeVideoWithTimesWatched = Pair<YoutubeVideo, Int>

@@ -13,7 +13,7 @@ class Testing {
     @Test
     fun `sort by most watched urls`() {
         assert(sortVideos(videos).isNotEmpty())
-        assert(sortVideos(videos).size == 2)
+        assert(sortVideos(videos).size == 3)
         // TODO
     }
 
