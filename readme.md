@@ -3,14 +3,14 @@ This app shows your youtube history, grouped by months and sorted by watch count
 
 # Instructions
 
-2. Go to [google takeout page](https://takeout.google.com/settings/takeout), deselect everything except *YouTube and
+1. Go to [google takeout page](https://takeout.google.com/settings/takeout), deselect everything except *YouTube and
    YouTube Music*.
-3. Under *YouTube and YouTube Music* click on *Multiple formats* and change history type from html to json
-4. Under *YouTube and YouTube Music* click on *All YouTube data included* and deselect everything except history
-5. click next step, choose your method and download files
-6. Install Java 11 and make sure JAVA_HOME is set
-7. Download .jar file from the Releases page and run it with `java -jar youtube-history-all.jar watch-history.json`
-8. The output from the program is MD formatted, you can copy&paste it in your repo on Github or in Notion.
+2. Under *YouTube and YouTube Music* click on *Multiple formats* and change history type from html to json
+3. Under *YouTube and YouTube Music* click on *All YouTube data included* and deselect everything except history
+4. click next step, choose your method and download files
+5. Install Java 11 and make sure JAVA_HOME is set
+6. Download .jar file from the Releases page and run it with `java -jar youtube-history-all.jar watch-history.json`
+7. The output from the program is MD formatted, you can copy&paste it in your repo on Github or in Notion.
 
 # Recover removed videos
 
