@@ -18,6 +18,13 @@ This app shows your YouTube history, grouped by months and sorted by watch count
 - these websites maybe helpful: [quiteaplaylist](https://quiteaplaylist.com)
   and [this post on archivarix](https://archivarix.com/en/blog/download-deleted-youtube-videos/)
 
+# Build from source
+
+clone the repository and in the project directory run `./gradlew shadowjar`
+then inside `build/libs` folder should be a jar file which you can run
+with `java -jar filename-all.jar "otpauth-..."`
+
 # this is what it looks like
+
 ![image](https://user-images.githubusercontent.com/22417494/124386451-89aa5980-dceb-11eb-8cd3-1d8fec57ad9a.png)
 
