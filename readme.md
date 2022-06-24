@@ -22,7 +22,7 @@ This app shows your YouTube history, grouped by months and sorted by watch count
 
 clone the repository and in the project directory run `./gradlew shadowjar`
 then inside `build/libs` folder should be a jar file which you can run
-with `java -jar filename-all.jar "otpauth-..."`
+with `java -jar filename-all.jar history.json`
 
 # this is what it looks like
 
