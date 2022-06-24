@@ -3,20 +3,6 @@ import java.time.Duration
 
 class Testing {
 
-    private val videos = getVideoHistoryJSON("testData.json")
-
-    @Test
-    fun `resources file loads`() {
-        assert(videos.isNotEmpty())
-    }
-
-    @Test
-    fun `sort by most watched urls`() {
-        assert(sortVideos(videos).isNotEmpty())
-        assert(sortVideos(videos).size == 3)
-        // TODO
-    }
-
     @Test
     fun `video length check`() {
         val videoLengthProvider = VideoLengthProvider()
@@ -26,8 +12,4 @@ class Testing {
         assert(videoLengthProvider.getVideoDurationByID("_Kmh4BbJPz8") == Duration.ofSeconds(31))
     }
 
-}
-
-fun sortVideos(videos: List<YoutubeVideo>): List<YoutubeVideo> {
-    return videos
 }
