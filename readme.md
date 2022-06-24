@@ -1,5 +1,5 @@
 # What is it?
-This app shows your youtube history, grouped by months and sorted by watch count
+This app shows your YouTube history, grouped by months and sorted by watch count
 
 # Instructions
 
