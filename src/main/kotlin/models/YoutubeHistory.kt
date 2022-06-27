@@ -4,11 +4,12 @@ import VideoLengthProvider
 import YoutubeVideo
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
+import java.io.File
 import java.time.Duration
 
 class YoutubeHistory(
     private val videoLengthProvider: VideoLengthProvider = VideoLengthProvider(),
-    resourcePath: String = "watch-history.json",
+    resourcePath: File,
     val minVideoClicks: Int = 10,
 ) {
 
@@ -34,12 +35,11 @@ class YoutubeHistory(
                 )
             }.filter {
                 it.timesClicked > minVideoClicks
-            }
+            }.ifEmpty { throw NoVideoFoundException(minVideoClicks) }
     }
 
-    private fun getVideoHistoryJSON(path: String): List<YoutubeVideo> {
-        val rawJson = javaClass.getResource(path)?.readText()
-            ?: throw IllegalStateException("Could not read $path, does it exists?")
+    private fun getVideoHistoryJSON(history: File): List<YoutubeVideo> {
+        val rawJson = history.readText()
         val parser = Json {
             ignoreUnknownKeys = true
         }
@@ -113,3 +113,7 @@ class YoutubeHistory(
             }.run(::format)
     }
 }
+
+class NoVideoFoundException(
+    minVideoClicks: Int,
+) : Exception("There is no video that appears $minVideoClicks times, please decrease minVideoClicks parameter")
