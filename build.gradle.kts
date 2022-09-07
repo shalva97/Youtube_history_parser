@@ -16,7 +16,6 @@ dependencies {
     commonTestImplementation(kotlin("test-junit"))
     commonMainImplementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.4.0")
 //    commonMainImplementation("com.squareup.okhttp3:okhttp:4.10.0") todo
-    commonMainImplementation("info.picocli:picocli:4.6.3")
 }
 
 kotlin {
