@@ -15,6 +15,7 @@ dependencies {
     commonMainImplementation("junit:junit:4.13.2")
     commonTestImplementation(kotlin("test-junit"))
     commonMainImplementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.4.0")
+    commonMainImplementation("org.jetbrains.kotlinx:kotlinx-datetime:0.4.0")
 //    commonMainImplementation("com.squareup.okhttp3:okhttp:4.10.0") todo
 }
 

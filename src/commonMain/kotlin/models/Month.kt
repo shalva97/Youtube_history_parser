@@ -1,10 +1,8 @@
 package models
 
-import java.text.SimpleDateFormat
-
 class Month(video: VideoStatistics) {
 
-    val monthName: String = dateFormatMonth.format(video.firstTimeWatched)
+//    val monthName: String = dateFormatMonth.format(video.firstTimeWatched)
     private val musicList: MutableList<VideoStatistics> = mutableListOf(video)
 
     fun addVideo(video: VideoStatistics) {
@@ -14,7 +12,7 @@ class Month(video: VideoStatistics) {
     override fun toString(): String {
         val stringBuilder = StringBuilder()
 
-        stringBuilder.appendLine("### $monthName")
+//        stringBuilder.appendLine("### $monthName")
         stringBuilder.appendLine()
         musicList.forEach { music ->
             val name = getVideoName(music)
@@ -30,11 +28,11 @@ class Month(video: VideoStatistics) {
     }
 
     companion object {
-        fun getMonthName(video: VideoStatistics): String {
-            return dateFormatMonth.format(video.firstTimeWatched)
-        }
-
-        private val dateFormatMonth = SimpleDateFormat("MMM")
+        //        fun getMonthName(video: VideoStatistics): String {
+//            return dateFormatMonth.format(video.firstTimeWatched)
+//        }
+//
+//        private val dateFormatMonth = SimpleDateFormat("MMM")
         private const val VIDEO_PREFIX = "Watched "
     }
 }
