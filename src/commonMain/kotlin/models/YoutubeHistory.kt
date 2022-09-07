@@ -4,8 +4,7 @@ import VideoLengthProvider
 import YoutubeVideo
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
-import java.io.File
-import java.time.Duration
+import kotlin.time.Duration
 
 class YoutubeHistory(
     private val videoLengthProvider: VideoLengthProvider = VideoLengthProvider(),
