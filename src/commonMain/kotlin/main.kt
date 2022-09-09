@@ -14,10 +14,3 @@ fun main(args: Array<String>): Unit {
     println(results)
 }
 
-//    fun getTopTenVideos(): String {
-//        val results = StringBuilder()
-//        topTenVideos().forEach {
-//            results.append("\n - [${it.title.replace("Watched ", "")} - ${it.timesClicked}](${it.url})")
-//        }
-//        return results.toString()
-//    }

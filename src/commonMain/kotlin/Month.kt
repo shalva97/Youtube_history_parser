@@ -1,15 +1,14 @@
-package models
-
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toLocalDateTime
+import models.VideoStatistics
 
 class Month(video: VideoStatistics) {
 
     val monthName: String = getMonthName(video)
-    private val musicList: MutableList<VideoStatistics> = mutableListOf(video)
+    private val videos: MutableList<VideoStatistics> = mutableListOf(video)
 
     fun addVideo(video: VideoStatistics) {
-        musicList.add(video)
+        videos.add(video)
     }
 
     override fun toString(): String {
@@ -17,16 +16,11 @@ class Month(video: VideoStatistics) {
         stringBuilder.appendLine("### $monthName")
         stringBuilder.appendLine()
 
-        musicList.forEach { music ->
-            val name = getVideoName(music)
-            stringBuilder.appendLine(" - [$name - ${music.timesClicked}](${music.url})")
+        videos.forEach { video ->
+            stringBuilder.appendLine(video)
         }
 
         return stringBuilder.toString()
-    }
-
-    private fun getVideoName(music: VideoStatistics): String {
-        return music.title.replace(VIDEO_PREFIX, "")
     }
 
     companion object {
@@ -34,6 +28,5 @@ class Month(video: VideoStatistics) {
             return video.firstTimeWatched.toLocalDateTime(TimeZone.UTC).month.name
         }
 
-        private const val VIDEO_PREFIX = "Watched "
     }
 }

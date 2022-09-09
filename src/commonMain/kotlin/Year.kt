@@ -1,16 +1,15 @@
-package models
-
 import kotlinx.datetime.Instant
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toLocalDateTime
+import models.VideoStatistics
 
-class Year(videos: VideoStatistics) {
+class Year(video: VideoStatistics) {
 
     private val history: MutableList<Month> = mutableListOf()
-    val year: Int = formatDateAsYear(videos.firstTimeWatched)
+    val year: Int = formatDateAsYear(video.firstTimeWatched)
 
     init {
-        history.add(Month(videos))
+        history.add(Month(video))
     }
 
     fun addMonth(video: VideoStatistics) {
@@ -26,9 +25,9 @@ class Year(videos: VideoStatistics) {
     override fun toString(): String {
         val output = StringBuilder()
         output.appendLine("## $year")
-        output.appendLine()
         history.forEach {
-            output.appendLine(it)
+            output.appendLine()
+            output.append(it)
         }
         return output.toString()
     }

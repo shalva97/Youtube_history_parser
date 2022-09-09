@@ -2,7 +2,6 @@ import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
 import models.Channel
 import models.VideoStatistics
-import models.Year
 import models.YoutubeVideo
 
 class YoutubeHistory(
@@ -35,7 +34,7 @@ class YoutubeHistory(
             }.ifEmpty { throw NoVideoFoundException(minVideoClicks) }
     }
 
-    fun getMusicHistory(): List<Year> {
+    fun getVideoHistory(): List<Year> {
         return videoStatistics.sortedByDescending { it.timesClicked }
             .fold(mutableListOf<Year>()) { acc, videoStatistics ->
                 val currentYear =
@@ -51,9 +50,36 @@ class YoutubeHistory(
             }
     }
 
-    fun topTenVideos() = videoStatistics.sortedByDescending {
+    fun topTenVideos(): List<VideoStatistics> = videoStatistics.sortedByDescending {
         it.timesClicked
     }.take(10)
+
+    fun getTopTenVideos(): String {
+        val results = StringBuilder()
+        topTenVideos().forEach {
+            results.appendLine()
+            results.append(it)
+        }
+        results.appendLine()
+        return results.toString()
+    }
+
+    override fun toString(): String {
+        val results = StringBuilder().apply {
+            append("# TOP 10")
+            appendLine()
+            append(getTopTenVideos())
+            appendLine()
+            append("# Youtube Video History")
+            appendLine()
+            getVideoHistory().forEach {
+                appendLine()
+                append(it)
+            }
+        }
+
+        return results.toString()
+    }
 
     companion object {
         fun parseVideoHistoryJSON(text: String): List<YoutubeVideo> {
