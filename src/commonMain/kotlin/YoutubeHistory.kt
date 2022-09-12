@@ -54,7 +54,7 @@ class YoutubeHistory(
         it.timesClicked
     }.take(10)
 
-    fun getTopTenVideos(): String {
+    private fun getTopTenVideos(): String {
         val results = StringBuilder()
         topTenVideos().forEach {
             results.appendLine()

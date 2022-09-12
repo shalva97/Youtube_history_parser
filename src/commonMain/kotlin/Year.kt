@@ -25,7 +25,7 @@ class Year(video: VideoStatistics) {
     override fun toString(): String {
         val output = StringBuilder()
         output.appendLine("## $year")
-        history.forEach {
+        history.sortedBy { it.firstTimeWatched }.forEach {
             output.appendLine()
             output.append(it)
         }

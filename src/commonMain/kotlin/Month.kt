@@ -1,3 +1,4 @@
+import kotlinx.datetime.LocalDateTime
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toLocalDateTime
 import models.VideoStatistics
@@ -5,6 +6,7 @@ import models.VideoStatistics
 class Month(video: VideoStatistics) {
 
     val monthName: String = getMonthName(video)
+    val firstTimeWatched = getDate(video)
     private val videos: MutableList<VideoStatistics> = mutableListOf(video)
 
     fun addVideo(video: VideoStatistics) {
@@ -26,6 +28,10 @@ class Month(video: VideoStatistics) {
     companion object {
         fun getMonthName(video: VideoStatistics): String {
             return video.firstTimeWatched.toLocalDateTime(TimeZone.UTC).month.name
+        }
+
+        private fun getDate(video: VideoStatistics): LocalDateTime {
+            return video.firstTimeWatched.toLocalDateTime(TimeZone.UTC)
         }
 
     }

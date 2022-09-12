@@ -12,7 +12,7 @@ data class YoutubeVideo(
     val title: String,
     val titleUrl: String? = null,
     @SerialName("subtitles")
-    val channel: List<Subtitle>,
+    val channel: List<Subtitle>? = null,
 )
 
 @Serializable
