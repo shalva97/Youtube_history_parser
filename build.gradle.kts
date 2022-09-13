@@ -1,37 +1,38 @@
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
-
 plugins {
-    kotlin("jvm") version "1.6.10"
+    kotlin("multiplatform") version "1.7.0"
     kotlin("plugin.serialization") version "1.6.10"
-    id("com.github.johnrengelman.shadow") version "7.1.2"
-    id("groovy")
+//    id("com.github.johnrengelman.shadow") version "7.1.2" // TODO also add support for jvm
+    id("com.adarshr.test-logger") version "3.2.0"
 }
 
-group = "me.shalva"
-version = "1.0.0"
-
-val jar by tasks.getting(Jar::class) {
-    manifest {
-        attributes["Main-Class"] = "MainKt"
-    }
-}
+group = "me.shalva97"
+version = "2.0.0"
 
 repositories {
     mavenCentral()
 }
 
 dependencies {
-    implementation("junit:junit:4.13.2")
-    testImplementation(kotlin("test-junit"))
-    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.3.3")
-    implementation("com.squareup.okhttp3:okhttp:4.10.0")
-    implementation("info.picocli:picocli:4.6.3")
+    commonMainImplementation("junit:junit:4.13.2")
+    commonTestImplementation(kotlin("test-junit"))
+    commonMainImplementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.4.0")
+    commonMainImplementation("org.jetbrains.kotlinx:kotlinx-datetime:0.4.0")
 }
 
-tasks.test {
-    useJUnit()
-}
+kotlin {
+    jvm {
+        val main by compilations.getting {
+            kotlinOptions {
+                jvmTarget = "11"
+            }
+        }
+    }
 
-tasks.withType<KotlinCompile>() {
-    kotlinOptions.jvmTarget = "1.8"
+    js(IR) {
+        browser()
+    }
+
+    sourceSets {
+        val commonMain by getting
+    }
 }

@@ -1,15 +1,15 @@
-package models
+import kotlinx.datetime.Instant
+import kotlinx.datetime.TimeZone
+import kotlinx.datetime.toLocalDateTime
+import models.VideoStatistics
 
-import java.text.SimpleDateFormat
-import java.util.*
-
-class Year(videos: VideoStatistics) {
+class Year(video: VideoStatistics) {
 
     private val history: MutableList<Month> = mutableListOf()
-    val year: Int = dateFormatYear.format(videos.firstTimeWatched).toInt()
+    val year: Int = formatDateAsYear(video.firstTimeWatched)
 
     init {
-        history.add(Month(videos))
+        history.add(Month(video))
     }
 
     fun addMonth(video: VideoStatistics) {
@@ -25,18 +25,16 @@ class Year(videos: VideoStatistics) {
     override fun toString(): String {
         val output = StringBuilder()
         output.appendLine("## $year")
-        output.appendLine()
-        history.forEach {
-            output.appendLine(it)
+        history.sortedBy { it.firstTimeWatched }.forEach {
+            output.appendLine()
+            output.append(it)
         }
         return output.toString()
     }
 
     companion object {
-        fun formatDateAsYear(date: Date): String {
-            return dateFormatYear.format(date)
+        fun formatDateAsYear(date: Instant): Int {
+            return date.toLocalDateTime(TimeZone.UTC).year
         }
-
-        private val dateFormatYear = SimpleDateFormat("yyyy")
     }
 }
