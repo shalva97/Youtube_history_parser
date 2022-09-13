@@ -7,7 +7,7 @@ This app shows your YouTube history, grouped by months and sorted by watch count
    YouTube Music*.
 2. Under *YouTube and YouTube Music* click on *Multiple formats* and change history type from html to json
 3. Under *YouTube and YouTube Music* click on *All YouTube data included* and deselect everything except history
-4. click next step, choose JSON format and download files
+4. click next step, choose your method and download files
 5. Open https://shalva97.github.io/Youtube_history_parser/ website and upload your file
 
 ### or
