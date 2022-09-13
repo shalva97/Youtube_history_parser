@@ -7,10 +7,15 @@ This app shows your YouTube history, grouped by months and sorted by watch count
    YouTube Music*.
 2. Under *YouTube and YouTube Music* click on *Multiple formats* and change history type from html to json
 3. Under *YouTube and YouTube Music* click on *All YouTube data included* and deselect everything except history
-4. click next step, choose your method and download files
+4. click next step, choose JSON format and download files
+5. Open https://shalva97.github.io/Youtube_history_parser/ website and upload your file
+
+### or
+
 5. Install Java 11 and make sure JAVA_HOME is set
-6. Download .jar file from the Releases page and run it with `java -jar youtube-history-all.jar watch-history.json`
-7. The output from the program is MD formatted, you can copy&paste it in your repo on Github or in Notion.
+6. Download .jar file from the Releases page (currently we have .jar file for previous release) and run it with `java -jar youtube-history-all.jar watch-history.json`
+
+The output from the program is MD formatted, you can copy&paste it in your repo on Github or in Notion.
 
 # Recover removed videos
 
