@@ -24,7 +24,7 @@ jobs:
         with:
           arguments: shadowJar
       - name: 'Upload Artifacts'
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: artifacts
           path: ./build/libs/*-all.jar
