@@ -16,9 +16,9 @@ class YoutubeHistoryTest {
     fun topTenVideos_sortingIsByMostTimesClickedVideo() {
         val top10 = YoutubeHistory(sampleData, 0).topTenVideos()
 
-        assertTrue(top10[0].title == "Watched Sabaton - To Hell And Back")
-        assertTrue(top10[1].title == "Watched WIND ROSE - Diggy Diggy Hole (Official Video) | Napalm Records")
-        assertTrue(top10[2].title == "Watched Happy Halloween (feat. Megumi) 【Intense Symphonic Metal Cover】")
+        assertTrue(top10[0].name == "Watched Sabaton - To Hell And Back")
+        assertTrue(top10[1].name == "Watched WIND ROSE - Diggy Diggy Hole (Official Video) | Napalm Records")
+        assertTrue(top10[2].name == "Watched Happy Halloween (feat. Megumi) 【Intense Symphonic Metal Cover】")
     }
 
     @Test

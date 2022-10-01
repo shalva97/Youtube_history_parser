@@ -3,34 +3,31 @@ package models
 import kotlinx.datetime.Instant
 
 data class VideoStatistics(
-    val title: String,
+    private val title: String,
     val firstTimeWatched: Instant,
     val timesClicked: Int,
     val url: String,
     val channel: Channel,
 ) {
+    val name: String = getVideoName(title)
+    val isDeleted: Boolean = name == url
+
     override fun toString(): String {
-        return " - [${getVideoName(this)} - ${timesClicked}](${url})"
-    }
-
-    private fun getVideoName(music: VideoStatistics): String {
-        return music.title.replace(VIDEO_PREFIX, "")
-    }
-}
-
-data class ChannelStatistics(val channel: Channel, val timesClicked: Int) {
-    override fun toString(): String {
-        return " - [${channel.name} - ${timesClicked}](${channel.url})"
-    }
-}
-
-data class Channel(val name: String, val url: String) {
-    companion object {
-        operator fun invoke(video: YoutubeVideo): Channel {
-            val first = video.channel?.first()
-            return Channel(first?.name ?: "unknown channel", first?.url ?: "unknown url")
+        return if (isDeleted) {
+            " - Deleted Video $videoID - [quiteaplaylist]($QUITE_A_PLAYLIST$url) - [Google]($GOOGLE$url)"
+        } else {
+            " - [${name} - ${timesClicked}](${url})"
         }
     }
 }
 
+private val VideoStatistics.videoID
+    get() = url.split('=').last()
+
+private fun getVideoName(title: String): String {
+    return title.replace(VIDEO_PREFIX, "")
+}
+
 private const val VIDEO_PREFIX = "Watched "
+private const val QUITE_A_PLAYLIST = "https://quiteaplaylist.com/search?url="
+private const val GOOGLE = "https://www.google.com/search?q="
