@@ -4,10 +4,7 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import kotlinx.coroutines.launch
 import org.jetbrains.compose.web.attributes.InputType
-import org.jetbrains.compose.web.css.height
-import org.jetbrains.compose.web.css.percent
-import org.jetbrains.compose.web.css.vh
-import org.jetbrains.compose.web.css.width
+import org.jetbrains.compose.web.css.*
 import org.jetbrains.compose.web.dom.*
 import org.jetbrains.compose.web.renderComposable
 import org.w3c.dom.asList
@@ -46,6 +43,16 @@ fun main() {
                     width(90.percent)
                     height(90.vh)
                 }
+            }
+            Div({
+                style {
+                    position(Position.Absolute);
+                    bottom(10.px); right(10.px);
+                    width(100.percent);
+                    textAlign("right")
+                }
+            }) {
+                Text("Version: " + "2.0.1") // TODO somehow get version name from Gradle
             }
         }
     }
