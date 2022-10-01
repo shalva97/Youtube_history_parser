@@ -37,9 +37,21 @@ class YoutubeHistoryTest {
 
         assertEquals(youtubeHistory, history.toString())
     }
+
+    @Test
+    fun blah() {
+        val history = YoutubeHistory(sampleData, 0)
+
+        history.getTopTenChannels()
+            .forEach { it.println() }
+    }
 }
 
-private const val youtubeHistory = """# TOP 10
+private fun Any.println() {
+    println(this)
+}
+
+private const val youtubeHistory = """# TOP 10 Videos
 
  - [Sabaton - To Hell And Back - 5](https://www.youtube.com/watch?v=-2ksLxpPhc8)
  - [WIND ROSE - Diggy Diggy Hole (Official Video) | Napalm Records - 4](https://www.youtube.com/watch?v=34CZjsEI1yU)
@@ -48,6 +60,16 @@ private const val youtubeHistory = """# TOP 10
  - [Owl vision - zyborg | Music Visualization - 3](https://www.youtube.com/watch?v=HkNU0FTBYEI)
  - [How to See Time on YouTube - 2](https://www.youtube.com/watch?v=e1ru-22K1JQ)
  - [Cepheid - Gaia (feat. Nonon & Sithu Aye) - 1](https://www.youtube.com/watch?v=SZvrKO763Mc)
+
+# TOP 10 Channels
+
+ - [W. Hugo - 5](https://www.youtube.com/channel/UCM4GP41J2L6tl3TBlTkOdrA)
+ - [Napalm Records - 4](https://www.youtube.com/channel/UCG7AaCh_CiG6pq_rRDNw72A)
+ - [FalKKonE - 3](https://www.youtube.com/channel/UChAHYPBvyaQIpjyTSdQhOMQ)
+ - [Kundi - 3](https://www.youtube.com/channel/UCwhpoqym25kcis9efwlvAng)
+ - [Miss Hentai Music - 3](https://www.youtube.com/channel/UCxeZ8I2gwi8cnxzRMDexiIg)
+ - [Howfinity - 2](https://www.youtube.com/channel/UCrSvDunJEc1CME4-KvhW_3Q)
+ - [Cepheid - 1](https://www.youtube.com/channel/UCUs2Csm28An8pzmcGP2UO2Q)
 
 # Youtube Video History
 
