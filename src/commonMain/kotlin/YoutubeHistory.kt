@@ -1,6 +1,7 @@
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
 import models.Channel
+import models.ChannelStatistics
 import models.VideoStatistics
 import models.YoutubeVideo
 
@@ -54,6 +55,16 @@ class YoutubeHistory(
         it.timesClicked
     }.take(10)
 
+    fun getTopTenChannels(): List<ChannelStatistics> {
+        return listOfYTYoutubeVideos
+            .map { Channel(it) }
+            .groupBy { it }
+            .toList()
+            .map { ChannelStatistics(it.first, it.second.count()) }
+            .sortedByDescending { it.timesClicked }
+            .take(10)
+    }
+
     private fun getTopTenVideos(): String {
         val results = StringBuilder()
         topTenVideos().forEach {
@@ -66,9 +77,17 @@ class YoutubeHistory(
 
     override fun toString(): String {
         val results = StringBuilder().apply {
-            append("# TOP 10")
+            append("# TOP 10 Videos")
             appendLine()
             append(getTopTenVideos())
+            appendLine()
+            append("# TOP 10 Channels")
+            appendLine()
+            appendLine()
+            getTopTenChannels().forEach {
+                append(it)
+                appendLine()
+            }
             appendLine()
             append("# Youtube Video History")
             appendLine()
