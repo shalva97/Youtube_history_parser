@@ -17,6 +17,6 @@ data class YoutubeVideo(
 
 @Serializable
 data class Subtitle(
-    val name: String,
-    val url: String
+    val name: String? = null,
+    val url: String? = null,
 )

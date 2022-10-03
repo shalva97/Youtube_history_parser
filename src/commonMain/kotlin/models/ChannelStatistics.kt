@@ -1,7 +1,7 @@
 package models
 
-data class ChannelStatistics(val channel: Channel, val timesClicked: Int) {
+data class ChannelStatistics(val channel: Channel, val videosWatched: Int) {
     override fun toString(): String {
-        return " - [${channel.name} - ${timesClicked}](${channel.url})"
+        return " - [${channel.name} - ${videosWatched}](${channel.url})"
     }
 }

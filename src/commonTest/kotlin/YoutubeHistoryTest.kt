@@ -6,13 +6,6 @@ import kotlin.test.assertTrue
 class YoutubeHistoryTest {
 
     @Test
-    fun parseVideoHistoryJSON_doesNotReturnEmptyList() {
-        val json = YoutubeHistory.parseVideoHistoryJSON(sampleData)
-
-        assertTrue(json.isNotEmpty())
-    }
-
-    @Test
     fun topTenVideos_sortingIsByMostTimesClickedVideo() {
         val top10 = YoutubeHistory(sampleData, 0).topTenVideos()
 

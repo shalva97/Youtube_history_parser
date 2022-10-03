@@ -61,7 +61,7 @@ class YoutubeHistory(
             .groupBy { it }
             .toList()
             .map { ChannelStatistics(it.first, it.second.count()) }
-            .sortedByDescending { it.timesClicked }
+            .sortedByDescending { it.videosWatched }
             .take(10)
     }
 
