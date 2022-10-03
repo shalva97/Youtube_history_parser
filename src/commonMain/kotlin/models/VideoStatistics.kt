@@ -14,7 +14,7 @@ data class VideoStatistics(
 
     override fun toString(): String {
         return if (isDeleted) {
-            " - Deleted Video $videoID - [quiteaplaylist]($QUITE_A_PLAYLIST$url) - [Google]($GOOGLE$url)"
+            " - Deleted Video $videoID - [quiteaplaylist]($QUITE_A_PLAYLIST$url) - [Google]($GOOGLE$url) - $timesClicked"
         } else {
             " - [${name} - ${timesClicked}](${url})"
         }
