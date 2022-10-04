@@ -18,4 +18,4 @@ private const val statisticsText =
     " - [Cepheid - Gaia (feat. Nonon & Sithu Aye) - 6](https://www.youtube.com/watch?v=SZvrKO763Mc)"
 
 private const val deletedVideoText =
-    " - Deleted Video _rfxqRRN2hM - [quiteaplaylist](https://quiteaplaylist.com/search?url=https://www.youtube.com/watch?v=_rfxqRRN2hM) - [Google](https://www.google.com/search?q=https://www.youtube.com/watch?v=_rfxqRRN2hM)"
+    " - Deleted Video _rfxqRRN2hM - [quiteaplaylist](https://quiteaplaylist.com/search?url=https://www.youtube.com/watch?v=_rfxqRRN2hM) - [Google](https://www.google.com/search?q=https://www.youtube.com/watch?v=_rfxqRRN2hM) - 6"
