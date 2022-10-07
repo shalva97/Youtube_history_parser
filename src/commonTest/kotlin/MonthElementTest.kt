@@ -18,7 +18,7 @@ const val someRandomVideoString = """### MAY | 6
  - [Cepheid - Gaia (feat. Nonon & Sithu Aye) - 6](https://www.youtube.com/watch?v=SZvrKO763Mc)
 """
 
-const val anotherRandomVideoString = """### FEBRUARY
+const val anotherRandomVideoString = """### FEBRUARY | 3
 
  - [Owl vision - zyborg | Music Visualization - 3](https://www.youtube.com/watch?v=HkNU0FTBYEI)
 """
