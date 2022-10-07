@@ -68,34 +68,34 @@ private const val youtubeHistory = """# TOP 10 Videos
 
 ## 2019 | 12
 
-### SEPTEMBER
+### SEPTEMBER | 5
 
  - [Sabaton - To Hell And Back - 5](https://www.youtube.com/watch?v=-2ksLxpPhc8)
 
-### OCTOBER
+### OCTOBER | 7
 
  - [WIND ROSE - Diggy Diggy Hole (Official Video) | Napalm Records - 4](https://www.youtube.com/watch?v=34CZjsEI1yU)
  - [Happy Halloween (feat. Megumi) 【Intense Symphonic Metal Cover】 - 3](https://www.youtube.com/watch?v=z3lCroFnILs)
 
 ## 2020 | 1
 
-### MAY
+### MAY | 1
 
  - [Cepheid - Gaia (feat. Nonon & Sithu Aye) - 1](https://www.youtube.com/watch?v=SZvrKO763Mc)
 
 ## 2021 | 5
 
-### FEBRUARY
+### FEBRUARY | 3
 
  - [Owl vision - zyborg | Music Visualization - 3](https://www.youtube.com/watch?v=HkNU0FTBYEI)
 
-### MAY
+### MAY | 2
 
  - [How to See Time on YouTube - 2](https://www.youtube.com/watch?v=e1ru-22K1JQ)
 
 ## 2022 | 3
 
-### JANUARY
+### JANUARY | 3
 
  - [一首超好聽的日語歌 -【Spirits】《 中日歌詞》 - 3](https://www.youtube.com/watch?v=5QhwXoy8CT8)
 """
