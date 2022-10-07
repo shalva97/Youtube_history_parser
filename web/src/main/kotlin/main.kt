@@ -1,7 +1,4 @@
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.runtime.setValue
+import androidx.compose.runtime.*
 import kotlinx.coroutines.launch
 import org.jetbrains.compose.web.attributes.InputType
 import org.jetbrains.compose.web.css.*
@@ -16,45 +13,45 @@ import kotlin.coroutines.suspendCoroutine
 
 fun main() {
 
-    var textArea by mutableStateOf("Markdown formatted text will appear here")
+    var output by mutableStateOf("Markdown formatted text will appear here")
+    var minVideoClicks by mutableStateOf(10)
 
     renderComposable(rootElementId = "root") {
         val scope = rememberCoroutineScope()
         Div {
-            Div {
-                Label {
-                    Text("Select a JSON file:")
-                }
-                Br()
-                Input(InputType.File) {
-                    onChange {
-                        val file = it.target.files?.asList()?.first()
+            Label {
+                Text("Select a JSON file:")
+            }
+            Br()
+            Input(InputType.File) {
+                onChange {
+                    val file = it.target.files?.asList()?.first()
 
-                        if (file != null) {
-                            scope.launch {
-                                textArea = YoutubeHistory(file.text()).toString()
+                    if (file != null) {
+                        scope.launch {
+                            output = try {
+                                YoutubeHistory(file.text(), minVideoClicks).toString()
+                            } catch (e: Exception) {
+                                e.message ?: "Unknown Error"
                             }
                         }
                     }
                 }
             }
-            TextArea(textArea) {
-                style {
-                    width(90.percent)
-                    height(90.vh)
-                }
-            }
-            Div({
-                style {
-                    position(Position.Absolute);
-                    bottom(10.px); right(10.px);
-                    width(100.percent);
-                    textAlign("right")
-                }
-            }) {
-                Text("Version: " + "2.0.2") // TODO somehow get version name from Gradle
+            Text("Minimum video clicks: ")
+            NumberInput(minVideoClicks) {
+                style { width(100.px); height(1.em) }
+                onInput { minVideoClicks = it.value!!.toInt() }
             }
         }
+
+        TextArea(output) {
+            style {
+                width(90.percent)
+                height(90.vh)
+            }
+        }
+        VersionNumber()
     }
 }
 
@@ -67,4 +64,18 @@ suspend fun Blob.text(): String = suspendCoroutine {
             it.resumeWithException(Error("reading file: $this"))
         }
     }.readAsText(this)
+}
+
+@Composable
+fun VersionNumber() {
+    Div({
+        style {
+            position(Position.Absolute);
+            bottom(10.px); right(10.px);
+            width(100.percent);
+            textAlign("right")
+        }
+    }) {
+        Text("Version: " + "2.0.3") // TODO somehow get version name from Gradle
+    }
 }
