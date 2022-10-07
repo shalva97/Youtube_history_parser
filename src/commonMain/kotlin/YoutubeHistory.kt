@@ -35,15 +35,15 @@ class YoutubeHistory(
             }.ifEmpty { throw NoVideoFoundException(minVideoClicks) }
     }
 
-    fun getVideoHistory(): List<Year> {
+    fun getVideoHistory(): List<YearElement> {
         return videoStatistics.sortedByDescending { it.timesClicked }
-            .fold(mutableListOf<Year>()) { acc, videoStatistics ->
+            .fold(mutableListOf<YearElement>()) { acc, videoStatistics ->
                 val currentYear =
-                    acc.firstOrNull { it.year == Year.formatDateAsYear(videoStatistics.firstTimeWatched) }
+                    acc.firstOrNull { it.year == YearElement.formatDateAsYear(videoStatistics.firstTimeWatched) }
                 if (currentYear != null) {
                     currentYear.addMonth(videoStatistics)
                 } else {
-                    acc.add(Year(videoStatistics))
+                    acc.add(YearElement(videoStatistics))
                 }
                 acc
             }.sortedBy {

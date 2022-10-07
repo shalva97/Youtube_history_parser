@@ -1,7 +1,7 @@
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
-class YearTest {
+class YearElementTest {
     @Test
     fun toString_returnsCorrectText() {
         val history = YoutubeHistory(sampleData, 0).getVideoHistory()

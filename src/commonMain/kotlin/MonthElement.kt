@@ -3,7 +3,7 @@ import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toLocalDateTime
 import models.VideoStatistics
 
-class Month(video: VideoStatistics) {
+class MonthElement(video: VideoStatistics) {
 
     val monthName: String = getMonthName(video)
     val firstTimeWatched = getDate(video)
