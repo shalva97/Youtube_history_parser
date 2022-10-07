@@ -10,7 +10,7 @@ class YearElementTest {
     }
 }
 
-private const val year2019 = """## 2019
+private const val year2019 = """## 2019 | 12
 
 ### SEPTEMBER
 

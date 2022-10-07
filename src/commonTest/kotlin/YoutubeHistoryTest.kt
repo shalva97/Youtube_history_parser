@@ -66,7 +66,7 @@ private const val youtubeHistory = """# TOP 10 Videos
 
 # Youtube Video History
 
-## 2019
+## 2019 | 12
 
 ### SEPTEMBER
 
@@ -77,13 +77,13 @@ private const val youtubeHistory = """# TOP 10 Videos
  - [WIND ROSE - Diggy Diggy Hole (Official Video) | Napalm Records - 4](https://www.youtube.com/watch?v=34CZjsEI1yU)
  - [Happy Halloween (feat. Megumi) 【Intense Symphonic Metal Cover】 - 3](https://www.youtube.com/watch?v=z3lCroFnILs)
 
-## 2020
+## 2020 | 1
 
 ### MAY
 
  - [Cepheid - Gaia (feat. Nonon & Sithu Aye) - 1](https://www.youtube.com/watch?v=SZvrKO763Mc)
 
-## 2021
+## 2021 | 5
 
 ### FEBRUARY
 
@@ -93,7 +93,7 @@ private const val youtubeHistory = """# TOP 10 Videos
 
  - [How to See Time on YouTube - 2](https://www.youtube.com/watch?v=e1ru-22K1JQ)
 
-## 2022
+## 2022 | 3
 
 ### JANUARY
 
