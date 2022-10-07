@@ -73,28 +73,21 @@ class YoutubeHistory(
     }
 
     override fun toString(): String {
-        val results = buildString {
-            append("# TOP 10 Videos")
+        return buildString {
+            appendLine("# Your history of ${listOfYTYoutubeVideos.count()} videos")
             appendLine()
-            append(getTopTenVideos())
+            appendLine("# TOP 10 Videos")
+            appendLine(getTopTenVideos())
+            appendLine("# TOP 10 Channels")
             appendLine()
-            append("# TOP 10 Channels")
+            getTopTenChannels().forEach(::appendLine)
             appendLine()
-            appendLine()
-            getTopTenChannels().forEach {
-                append(it)
-                appendLine()
-            }
-            appendLine()
-            append("# Youtube Video History")
-            appendLine()
+            appendLine("# Youtube Video History")
             getVideoHistory().forEach {
                 appendLine()
                 append(it)
             }
         }
-
-        return results.toString()
     }
 
     companion object {
