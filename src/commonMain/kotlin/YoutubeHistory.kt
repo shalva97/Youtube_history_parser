@@ -73,7 +73,7 @@ class YoutubeHistory(
     }
 
     override fun toString(): String {
-        val results = StringBuilder().apply {
+        val results = buildString {
             append("# TOP 10 Videos")
             appendLine()
             append(getTopTenVideos())
