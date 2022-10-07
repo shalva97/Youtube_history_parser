@@ -1,24 +1,24 @@
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
-class MonthTest {
+class MonthElementTest {
     @Test
     fun toString_returnsCorrectText() {
 
-        val month = Month(someRandomVideo)
+        val month = MonthElement(someRandomVideo)
         assertEquals(someRandomVideoString, month.toString())
 
-        val month2 = Month(anotherRandomVideo)
+        val month2 = MonthElement(anotherRandomVideo)
         assertEquals(anotherRandomVideoString, month2.toString())
     }
 }
 
-const val someRandomVideoString = """### MAY
+const val someRandomVideoString = """### MAY | 6
 
  - [Cepheid - Gaia (feat. Nonon & Sithu Aye) - 6](https://www.youtube.com/watch?v=SZvrKO763Mc)
 """
 
-const val anotherRandomVideoString = """### FEBRUARY
+const val anotherRandomVideoString = """### FEBRUARY | 3
 
  - [Owl vision - zyborg | Music Visualization - 3](https://www.youtube.com/watch?v=HkNU0FTBYEI)
 """

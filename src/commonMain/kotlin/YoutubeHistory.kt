@@ -7,7 +7,7 @@ import models.YoutubeVideo
 
 class YoutubeHistory(
     jsonData: String,
-    minVideoClicks: Int = 10,
+    private val minVideoClicks: Int = 10,
 ) {
 
     private val listOfYTYoutubeVideos by lazy {
@@ -15,10 +15,10 @@ class YoutubeHistory(
     }
 
     private val videoStatistics: List<VideoStatistics> by lazy {
-        getVideosWithMinClicks(minVideoClicks)
+        getVideosWithMinClicks()
     }
 
-    private fun getVideosWithMinClicks(minVideoClicks: Int): List<VideoStatistics> {
+    private fun getVideosWithMinClicks(): List<VideoStatistics> {
         return listOfYTYoutubeVideos
             .groupBy { it.titleUrl }
             .map {
@@ -30,25 +30,22 @@ class YoutubeHistory(
                     url = firstVideo.titleUrl!!,
                     channel = Channel(firstVideo)
                 )
-            }.filter {
-                it.timesClicked > minVideoClicks
-            }.ifEmpty { throw NoVideoFoundException(minVideoClicks) }
+            }
     }
 
-    fun getVideoHistory(): List<Year> {
-        return videoStatistics.sortedByDescending { it.timesClicked }
-            .fold(mutableListOf<Year>()) { acc, videoStatistics ->
-                val currentYear =
-                    acc.firstOrNull { it.year == Year.formatDateAsYear(videoStatistics.firstTimeWatched) }
-                if (currentYear != null) {
-                    currentYear.addMonth(videoStatistics)
-                } else {
-                    acc.add(Year(videoStatistics))
-                }
-                acc
-            }.sortedBy {
-                it.year
+    fun getVideoHistory(): List<YearElement> {
+        return videoStatistics.fold(mutableListOf<YearElement>()) { acc, videoStatistics ->
+            val currentYear =
+                acc.firstOrNull { it.year == YearElement.formatDateAsYear(videoStatistics.firstTimeWatched) }
+            if (currentYear != null) {
+                currentYear.addMonth(videoStatistics)
+            } else {
+                acc.add(YearElement(videoStatistics, minVideoClicks))
             }
+            acc
+        }.sortedBy {
+            it.year
+        }
     }
 
     fun topTenVideos(): List<VideoStatistics> = videoStatistics.sortedByDescending {
@@ -76,7 +73,7 @@ class YoutubeHistory(
     }
 
     override fun toString(): String {
-        val results = StringBuilder().apply {
+        val results = buildString {
             append("# TOP 10 Videos")
             appendLine()
             append(getTopTenVideos())

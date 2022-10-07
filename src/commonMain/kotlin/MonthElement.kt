@@ -3,11 +3,12 @@ import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toLocalDateTime
 import models.VideoStatistics
 
-class Month(video: VideoStatistics) {
+class MonthElement(video: VideoStatistics, private val minVideoClicks: Int = 0) {
 
     val monthName: String = getMonthName(video)
     val firstTimeWatched = getDate(video)
     private val videos: MutableList<VideoStatistics> = mutableListOf(video)
+    val totalVideosWatched get() = videos.sumOf { it.timesClicked }
 
     fun addVideo(video: VideoStatistics) {
         videos.add(video)
@@ -15,10 +16,10 @@ class Month(video: VideoStatistics) {
 
     override fun toString(): String {
         val stringBuilder = StringBuilder()
-        stringBuilder.appendLine("### $monthName")
+        stringBuilder.appendLine("### $monthName | $totalVideosWatched")
         stringBuilder.appendLine()
 
-        videos.forEach { video ->
+        videos.filter { it.timesClicked > minVideoClicks }.forEach { video ->
             stringBuilder.appendLine(video)
         }
 
