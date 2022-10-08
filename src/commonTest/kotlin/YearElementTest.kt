@@ -10,13 +10,13 @@ class YearElementTest {
     }
 }
 
-private const val year2019 = """## 2019 | 12
+private const val year2019 = """## 2019 _ 12
 
-### SEPTEMBER | 5
+### SEPTEMBER _ 5
 
  - [Sabaton - To Hell And Back - 5](https://www.youtube.com/watch?v=-2ksLxpPhc8)
 
-### OCTOBER | 7
+### OCTOBER _ 7
 
  - [WIND ROSE - Diggy Diggy Hole (Official Video) | Napalm Records - 4](https://www.youtube.com/watch?v=34CZjsEI1yU)
  - [Happy Halloween (feat. Megumi) 【Intense Symphonic Metal Cover】 - 3](https://www.youtube.com/watch?v=z3lCroFnILs)

@@ -24,7 +24,7 @@ class YearElement(video: VideoStatistics, private val minVideoClicks: Int) {
 
     override fun toString(): String {
         val output = StringBuilder()
-        output.appendLine("## $year | ${history.sumOf { it.totalVideosWatched }}")
+        output.appendLine("## $year _ ${history.sumOf { it.totalVideosWatched }}")
         history.sortedBy { it.firstTimeWatched }.forEach {
             output.appendLine()
             output.append(it)
