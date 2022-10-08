@@ -74,7 +74,7 @@ class YoutubeHistory(
 
     override fun toString(): String {
         return buildString {
-            appendLine("# Your history of ${listOfYTYoutubeVideos.count()} videos")
+            appendLine("# Your history of ${listOfYTYoutubeVideos.count()} video clicks")
             appendLine()
             appendLine("# TOP 10 Videos")
             appendLine(getTopTenVideos())
