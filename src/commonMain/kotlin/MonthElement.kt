@@ -16,12 +16,14 @@ class MonthElement(video: VideoStatistics, private val minVideoClicks: Int = 0) 
 
     override fun toString(): String {
         val stringBuilder = StringBuilder()
-        stringBuilder.appendLine("### $monthName | $totalVideosWatched")
+        stringBuilder.appendLine("### $monthName _ $totalVideosWatched")
         stringBuilder.appendLine()
 
-        videos.filter { it.timesClicked > minVideoClicks }.forEach { video ->
-            stringBuilder.appendLine(video)
-        }
+        videos.filter { it.timesClicked > minVideoClicks }
+            .sortedByDescending { it.timesClicked }
+            .forEach { video ->
+                stringBuilder.appendLine(video)
+            }
 
         return stringBuilder.toString()
     }

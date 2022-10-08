@@ -44,7 +44,9 @@ private fun Any.println() {
     println(this)
 }
 
-private const val youtubeHistory = """# TOP 10 Videos
+private const val youtubeHistory = """# Your history of 21 video clicks
+
+# TOP 10 Videos
 
  - [Sabaton - To Hell And Back - 5](https://www.youtube.com/watch?v=-2ksLxpPhc8)
  - [WIND ROSE - Diggy Diggy Hole (Official Video) | Napalm Records - 4](https://www.youtube.com/watch?v=34CZjsEI1yU)
@@ -66,36 +68,36 @@ private const val youtubeHistory = """# TOP 10 Videos
 
 # Youtube Video History
 
-## 2019 | 12
+## 2019 _ 12
 
-### SEPTEMBER | 5
+### SEPTEMBER _ 5
 
  - [Sabaton - To Hell And Back - 5](https://www.youtube.com/watch?v=-2ksLxpPhc8)
 
-### OCTOBER | 7
+### OCTOBER _ 7
 
  - [WIND ROSE - Diggy Diggy Hole (Official Video) | Napalm Records - 4](https://www.youtube.com/watch?v=34CZjsEI1yU)
  - [Happy Halloween (feat. Megumi) 【Intense Symphonic Metal Cover】 - 3](https://www.youtube.com/watch?v=z3lCroFnILs)
 
-## 2020 | 1
+## 2020 _ 1
 
-### MAY | 1
+### MAY _ 1
 
  - [Cepheid - Gaia (feat. Nonon & Sithu Aye) - 1](https://www.youtube.com/watch?v=SZvrKO763Mc)
 
-## 2021 | 5
+## 2021 _ 5
 
-### FEBRUARY | 3
+### FEBRUARY _ 3
 
  - [Owl vision - zyborg | Music Visualization - 3](https://www.youtube.com/watch?v=HkNU0FTBYEI)
 
-### MAY | 2
+### MAY _ 2
 
  - [How to See Time on YouTube - 2](https://www.youtube.com/watch?v=e1ru-22K1JQ)
 
-## 2022 | 3
+## 2022 _ 3
 
-### JANUARY | 3
+### JANUARY _ 3
 
  - [一首超好聽的日語歌 -【Spirits】《 中日歌詞》 - 3](https://www.youtube.com/watch?v=5QhwXoy8CT8)
 """
