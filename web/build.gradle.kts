@@ -4,7 +4,7 @@ plugins {
 }
 
 group = "com.github.shalva97"
-version = "2.0.3"
+version = "2.0.4"
 
 kotlin {
     js(IR) {
