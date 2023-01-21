@@ -38,13 +38,3 @@ rootProject.extensions.configure<org.jetbrains.kotlin.gradle.targets.js.nodejs.N
 compose.experimental {
     web.application {}
 }
-
-// fix warning: Task ':jsApp:jsProcessResources' uses this output of task ':common:unpackSkikoWasmRuntimeJs' ...
-tasks.matching { it.name == "processResources" }.configureEach {
-    inputs.dir(tasks.named<org.jetbrains.compose.experimental.web.tasks.ExperimentalUnpackSkikoWasmRuntimeTask>("unpackSkikoWasmRuntimeJs").map { it.outputDir })
-}
-
-// fix warning: Task ':jsApp:jsBrowserDevelopmentRun' uses this output of task ':common:jsDevelopmentExecutableCompileSync' ...
-tasks.matching { it.name == "browserDevelopmentRun" }.configureEach {
-    inputs.dir(tasks.named<Copy>("developmentExecutableCompileSync").map { it.destinationDir })
-}
