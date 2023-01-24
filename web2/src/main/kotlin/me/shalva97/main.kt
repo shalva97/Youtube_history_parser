@@ -14,6 +14,8 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Window
+import common.loadFileFromDisk
+import kotlinx.browser.document
 import me.shalva97.screens.DownloadsPage
 import me.shalva97.screens.HistoryPage
 import me.shalva97.screens.SettingsPage
@@ -28,7 +30,11 @@ fun main() {
             Row {
                 NavigationRail {
 
-                    FloatingActionButton(onClick = {}, shape = RoundedCornerShape(10.dp)) {
+                    FloatingActionButton(onClick = {
+                        document.loadFileFromDisk(".txt") {
+                            println(it)
+                        }
+                    }, shape = RoundedCornerShape(10.dp)) {
                         Icon(Icons.Filled.Add, contentDescription = "Add")
                     }
 
@@ -53,6 +59,3 @@ fun main() {
         }
     }
 }
-
-
-
