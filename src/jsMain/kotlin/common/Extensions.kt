@@ -1,42 +1,31 @@
 package common
 
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.async
-import kotlinx.coroutines.launch
 import org.w3c.dom.Document
 import org.w3c.dom.HTMLInputElement
 import org.w3c.dom.ItemArrayLike
 import org.w3c.dom.asList
 import org.w3c.files.File
 import org.w3c.files.FileReader
+import kotlin.coroutines.resume
 import kotlin.coroutines.suspendCoroutine
 
-suspend fun Document.loadFileFromDisk(
-    accept: String,
-    scope: CoroutineScope,
-    onLoaded: (List<String>) -> Unit,
-) {
+suspend fun Document.selectAndParseFilesFromDisk(accept: String): List<String> {
+    return selectFilesFromDisk(accept).map { readFileAsText(it) }
+}
+
+private suspend fun Document.selectFilesFromDisk(
+    accept: String
+) = suspendCoroutine {
     val tempInput = (createElement("input") as HTMLInputElement).apply {
         type = "file"
         style.display = "none"
         this.accept = accept
-        multiple = false
+        multiple = true
     }
 
     tempInput.onchange = { changeEvt ->
         val files = (changeEvt.target.asDynamic().files as ItemArrayLike<File>).asList()
-
-        println(files)
-        scope.launch {
-            println("onLaunched")
-            files.map { async { readFileAsText(it) } }
-                .map { it.await() }
-                .also {
-                    println("onLoaded")
-                    onLoaded(it)
-                }
-        }
-        Unit
+        it.resume(files)
     }
 
     body!!.append(tempInput)
@@ -44,7 +33,7 @@ suspend fun Document.loadFileFromDisk(
     tempInput.remove()
 }
 
-suspend fun readFileAsText(file: File) = suspendCoroutine {
+private suspend fun readFileAsText(file: File) = suspendCoroutine {
     val reader = FileReader()
     reader.onload = { loadEvt ->
         val content = loadEvt.target.asDynamic().result as String

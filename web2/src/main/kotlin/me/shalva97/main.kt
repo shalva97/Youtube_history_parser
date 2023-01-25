@@ -11,7 +11,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Window
-import common.loadFileFromDisk
+import common.selectAndParseFilesFromDisk
 import kotlinx.browser.document
 import kotlinx.coroutines.launch
 import me.shalva97.screens.DownloadsPage
@@ -31,9 +31,8 @@ fun main() {
 
                     FloatingActionButton(onClick = {
                         localScope.launch {
-                            document.loadFileFromDisk(".txt", this) {
-                                println(it)
-                            }
+                            val files = document.selectAndParseFilesFromDisk(".txt")
+                            println(files)
                         }
                     }, shape = RoundedCornerShape(10.dp)) {
                         Icon(Icons.Filled.Add, contentDescription = "Add")
