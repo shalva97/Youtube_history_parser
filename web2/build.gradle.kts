@@ -21,7 +21,7 @@ repositories {
 }
 
 dependencies {
-    implementation("org.jetbrains.kotlinx:kotlinx-html:0.8.0")
+    implementation("org.jetbrains.kotlinx:kotlinx-html:0.8.1")
     implementation(kotlin("stdlib-js"))
     implementation(rootProject)
     implementation(compose.ui)
