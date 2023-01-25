@@ -1,6 +1,6 @@
 plugins {
     kotlin("js")
-    id("org.jetbrains.compose") version "1.3.0-rc05"
+    id("org.jetbrains.compose")
 }
 
 kotlin {
