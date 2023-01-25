@@ -15,9 +15,9 @@ fun main() {
 
     var output by mutableStateOf("Markdown formatted text will appear here")
     var minVideoClicks by mutableStateOf(10)
+    val scope = rememberCoroutineScope()
 
     renderComposable(rootElementId = "root") {
-        val scope = rememberCoroutineScope()
         Div {
             Label {
                 Text("Select a JSON file:")

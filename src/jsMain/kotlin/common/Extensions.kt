@@ -1,13 +1,20 @@
 package common
 
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.async
+import kotlinx.coroutines.launch
 import org.w3c.dom.Document
 import org.w3c.dom.HTMLInputElement
+import org.w3c.dom.ItemArrayLike
+import org.w3c.dom.asList
 import org.w3c.files.File
 import org.w3c.files.FileReader
+import kotlin.coroutines.suspendCoroutine
 
-fun Document.loadFileFromDisk(
+suspend fun Document.loadFileFromDisk(
     accept: String,
-    onLoaded: (String) -> Unit,
+    scope: CoroutineScope,
+    onLoaded: (List<String>) -> Unit,
 ) {
     val tempInput = (createElement("input") as HTMLInputElement).apply {
         type = "file"
@@ -17,17 +24,31 @@ fun Document.loadFileFromDisk(
     }
 
     tempInput.onchange = { changeEvt ->
-        val file = changeEvt.target.asDynamic().files[0] as File
+        val files = (changeEvt.target.asDynamic().files as ItemArrayLike<File>).asList()
 
-        val reader = FileReader()
-        reader.onload = { loadEvt ->
-            val content = loadEvt.target.asDynamic().result as String
-            onLoaded(content)
+        println(files)
+        scope.launch {
+            println("onLaunched")
+            files.map { async { readFileAsText(it) } }
+                .map { it.await() }
+                .also {
+                    println("onLoaded")
+                    onLoaded(it)
+                }
         }
-        reader.readAsText(file, "UTF-8")
+        Unit
     }
 
     body!!.append(tempInput)
     tempInput.click()
     tempInput.remove()
+}
+
+suspend fun readFileAsText(file: File) = suspendCoroutine {
+    val reader = FileReader()
+    reader.onload = { loadEvt ->
+        val content = loadEvt.target.asDynamic().result as String
+        it.resumeWith(Result.success(content))
+    }
+    reader.readAsText(file, "UTF-8")
 }
