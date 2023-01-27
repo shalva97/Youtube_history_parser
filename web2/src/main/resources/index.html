@@ -7,8 +7,13 @@
     <script src="skiko.js"></script>
 </head>
 <body>
-<canvas id="ComposeTarget"
-        height="777" width="777"></canvas>
+<canvas id="ComposeTarget"></canvas>
+<script>
+    var canvas = document.getElementById("ComposeTarget");
+    canvas.width  = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+</script>
 <script src="web2.js"></script>
 </body>
 </html>
