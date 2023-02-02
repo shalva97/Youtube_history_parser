@@ -34,10 +34,7 @@ fun main() {
                                 selectedFiles = document.selectAndParseFilesFromDisk(".json")
                             }
                         }) {
-                            Icon(
-                                Icons.Filled.Add,
-                                contentDescription = "Add"
-                            )
+                            Icon(Icons.Filled.Add, contentDescription = "Add")
                         }
 
                         Spacer(Modifier.height(16.dp))

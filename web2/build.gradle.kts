@@ -29,6 +29,7 @@ dependencies {
     implementation(rootProject)
     implementation(compose.ui)
     implementation(compose.foundation)
+    implementation(compose.materialIconsExtended)
     @OptIn(ExperimentalComposeLibrary::class) implementation(compose.material3)
     implementation(compose.runtime)
 
