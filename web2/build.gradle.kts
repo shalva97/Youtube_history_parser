@@ -1,3 +1,5 @@
+import org.jetbrains.compose.ExperimentalComposeLibrary
+
 plugins {
     kotlin("js")
     id("org.jetbrains.compose")
@@ -26,7 +28,7 @@ dependencies {
     implementation(rootProject)
     implementation(compose.ui)
     implementation(compose.foundation)
-    implementation(compose.material)
+    @OptIn(ExperimentalComposeLibrary::class) implementation(compose.material3)
     implementation(compose.runtime)
 
 }
