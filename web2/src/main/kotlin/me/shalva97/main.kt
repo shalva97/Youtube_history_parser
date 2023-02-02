@@ -3,7 +3,6 @@ package me.shalva97
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.*
@@ -34,7 +33,7 @@ fun main() {
                             localScope.launch {
                                 selectedFiles = document.selectAndParseFilesFromDisk(".json")
                             }
-                        }, shape = RoundedCornerShape(10.dp)) {
+                        }) {
                             Icon(
                                 Icons.Filled.Add,
                                 contentDescription = "Add"

@@ -1,4 +1,5 @@
 import org.jetbrains.compose.ExperimentalComposeLibrary
+import org.jetbrains.kotlin.gradle.targets.js.nodejs.NodeJsRootExtension
 
 plugins {
     kotlin("js")
@@ -33,7 +34,7 @@ dependencies {
 
 }
 
-rootProject.extensions.configure<org.jetbrains.kotlin.gradle.targets.js.nodejs.NodeJsRootExtension> {
+rootProject.extensions.configure<NodeJsRootExtension> {
     versions.webpackCli.version = "4.10.0"
 }
 
