@@ -12,6 +12,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Window
 import common.selectAndParseFilesFromDisk
 import kotlinx.browser.document
+import kotlinx.browser.window
 import kotlinx.coroutines.launch
 import me.shalva97.screens.DownloadsPage
 import me.shalva97.screens.HistoryPage
@@ -19,6 +20,7 @@ import me.shalva97.screens.SettingsPage
 import me.shalva97.screens.StatsPage
 import org.jetbrains.skiko.wasm.onWasmReady
 
+@OptIn(ExperimentalMaterial3Api::class)
 fun main() {
     onWasmReady {
         Window {
@@ -26,37 +28,44 @@ fun main() {
             var selectedDestination by remember { mutableStateOf(Destinations.HISTORY) }
             val destinations = Destinations.values()
             var selectedFiles by remember { mutableStateOf<List<String>>(emptyList()) }
-            MaterialTheme {
-                Row {
-                    NavigationRail {
-                        FloatingActionButton(onClick = {
-                            localScope.launch {
-                                selectedFiles = document.selectAndParseFilesFromDisk(".json")
+
+            MaterialTheme(colorScheme = preferredColorScheme()) {
+                Scaffold {
+                    Row {
+                        NavigationRail {
+                            FloatingActionButton(onClick = {
+                                localScope.launch {
+                                    selectedFiles = document.selectAndParseFilesFromDisk(".json")
+                                }
+                            }) {
+                                Icon(Icons.Filled.Add, contentDescription = "Add")
                             }
-                        }) {
-                            Icon(Icons.Filled.Add, contentDescription = "Add")
-                        }
 
-                        Spacer(Modifier.height(16.dp))
+                            Spacer(Modifier.height(16.dp))
 
-                        destinations.forEach { item ->
-                            NavigationRailItem(
-                                icon = { Icon(item.icon, contentDescription = item.title) },
-                                label = { Text(item.title) },
-                                selected = selectedDestination == item,
-                                onClick = { selectedDestination = item }
-                            )
+                            destinations.forEach { item ->
+                                NavigationRailItem(icon = {
+                                    Icon(item.icon, contentDescription = item.title)
+                                },
+                                    label = { Text(item.title) },
+                                    selected = selectedDestination == item,
+                                    onClick = { selectedDestination = item })
+                            }
                         }
-                    }
-                    when (selectedDestination) {
-                        Destinations.HISTORY -> HistoryPage(selectedFiles)
-                        Destinations.STATS -> StatsPage()
-                        Destinations.DOWNLOADS -> DownloadsPage()
-                        Destinations.SETTINGS -> SettingsPage()
+                        when (selectedDestination) {
+                            Destinations.HISTORY -> HistoryPage(selectedFiles)
+                            Destinations.STATS -> StatsPage()
+                            Destinations.DOWNLOADS -> DownloadsPage()
+                            Destinations.SETTINGS -> SettingsPage()
+                        }
                     }
                 }
             }
         }
     }
+}
 
+private fun preferredColorScheme(): ColorScheme {
+    return if (window.matchMedia("(prefers-color-scheme: dark)").matches) darkColorScheme()
+    else lightColorScheme()
 }

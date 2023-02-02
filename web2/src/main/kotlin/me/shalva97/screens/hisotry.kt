@@ -23,13 +23,13 @@ fun HistoryPage(selectedFiles: List<String>) {
     val scrollState = rememberScrollState()
     val coroutineScope = rememberCoroutineScope()
     Column(
-        Modifier.padding(16.dp)
+        modifier = Modifier.padding(16.dp)
             .verticalScroll(scrollState)
             .onPointerEvent(PointerEventType.Scroll) {
                 coroutineScope.launch {
                     scrollState.scrollBy((it.nativeEvent as SkikoPointerEvent).deltaY.toFloat())
                 }
-            }
+            },
     ) {
         if (selectedFiles.isNotEmpty()) {
             val text = try {
