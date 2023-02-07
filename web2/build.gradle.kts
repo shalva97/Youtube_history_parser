@@ -1,3 +1,6 @@
+import org.jetbrains.compose.ExperimentalComposeLibrary
+import org.jetbrains.kotlin.gradle.targets.js.nodejs.NodeJsRootExtension
+
 plugins {
     kotlin("js")
     id("org.jetbrains.compose")
@@ -26,12 +29,13 @@ dependencies {
     implementation(rootProject)
     implementation(compose.ui)
     implementation(compose.foundation)
-    implementation(compose.material)
+    implementation(compose.materialIconsExtended)
+    @OptIn(ExperimentalComposeLibrary::class) implementation(compose.material3)
     implementation(compose.runtime)
 
 }
 
-rootProject.extensions.configure<org.jetbrains.kotlin.gradle.targets.js.nodejs.NodeJsRootExtension> {
+rootProject.extensions.configure<NodeJsRootExtension> {
     versions.webpackCli.version = "4.10.0"
 }
 

@@ -6,7 +6,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.Text
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.ExperimentalComposeUiApi
@@ -23,13 +23,13 @@ fun HistoryPage(selectedFiles: List<String>) {
     val scrollState = rememberScrollState()
     val coroutineScope = rememberCoroutineScope()
     Column(
-        Modifier.padding(16.dp)
+        modifier = Modifier.padding(16.dp)
             .verticalScroll(scrollState)
             .onPointerEvent(PointerEventType.Scroll) {
                 coroutineScope.launch {
                     scrollState.scrollBy((it.nativeEvent as SkikoPointerEvent).deltaY.toFloat())
                 }
-            }
+            },
     ) {
         if (selectedFiles.isNotEmpty()) {
             val text = try {
