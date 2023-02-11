@@ -11,57 +11,63 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Window
 import common.selectAndParseFilesFromDisk
+import di
 import kotlinx.browser.document
 import kotlinx.browser.window
 import kotlinx.coroutines.launch
-import me.shalva97.screens.DownloadsPage
-import me.shalva97.screens.HistoryPage
-import me.shalva97.screens.SettingsPage
-import me.shalva97.screens.StatsPage
+import me.shalva97.screens.DownloadsScreen
+import me.shalva97.screens.HistoryScreen
+import me.shalva97.screens.SettingsScreen
+import me.shalva97.screens.StatsScreen
 import org.jetbrains.skiko.wasm.onWasmReady
+import org.kodein.di.compose.withDI
 
 @OptIn(ExperimentalMaterial3Api::class)
 fun main() {
     onWasmReady {
-        Window {
-            val localScope = rememberCoroutineScope()
-            var selectedDestination by remember { mutableStateOf(Destinations.HISTORY) }
-            val destinations = Destinations.values()
-            var selectedFiles by remember { mutableStateOf<List<String>>(emptyList()) }
+        withDI(di = di) {
+            Window {
+                val localScope = rememberCoroutineScope()
+                var selectedTab by remember { mutableStateOf(HomeTab.HISTORY) }
+                val destinations = HomeTab.values()
+                var selectedFiles by remember { mutableStateOf<List<String>>(emptyList()) }
 
-            MaterialTheme(colorScheme = preferredColorScheme()) {
-                Scaffold {
-                    Row {
-                        NavigationRail {
-                            FloatingActionButton(onClick = {
-                                localScope.launch {
-                                    selectedFiles = document.selectAndParseFilesFromDisk(".json")
+                MaterialTheme(colorScheme = preferredColorScheme()) {
+                    Scaffold {
+                        Row {
+                            NavigationRail {
+                                FloatingActionButton(onClick = {
+                                    localScope.launch {
+                                        selectedFiles =
+                                            document.selectAndParseFilesFromDisk(".json")
+                                    }
+                                }) {
+                                    Icon(Icons.Filled.Add, contentDescription = "Add")
                                 }
-                            }) {
-                                Icon(Icons.Filled.Add, contentDescription = "Add")
-                            }
 
-                            Spacer(Modifier.height(16.dp))
+                                Spacer(Modifier.height(16.dp))
 
-                            destinations.forEach { item ->
-                                NavigationRailItem(icon = {
-                                    Icon(item.icon, contentDescription = item.title)
-                                },
-                                    label = { Text(item.title) },
-                                    selected = selectedDestination == item,
-                                    onClick = { selectedDestination = item })
+                                destinations.forEach { item ->
+                                    NavigationRailItem(icon = {
+                                        Icon(item.icon, contentDescription = item.title)
+                                    },
+                                        label = { Text(item.title) },
+                                        selected = selectedTab == item,
+                                        onClick = { selectedTab = item })
+                                }
                             }
-                        }
-                        when (selectedDestination) {
-                            Destinations.HISTORY -> HistoryPage(selectedFiles)
-                            Destinations.STATS -> StatsPage()
-                            Destinations.DOWNLOADS -> DownloadsPage()
-                            Destinations.SETTINGS -> SettingsPage()
+                            when (selectedTab) {
+                                HomeTab.HISTORY -> HistoryScreen(selectedFiles)
+                                HomeTab.STATS -> StatsScreen()
+                                HomeTab.DOWNLOADS -> DownloadsScreen()
+                                HomeTab.SETTINGS -> SettingsScreen()
+                            }
                         }
                     }
                 }
             }
         }
+
     }
 }
 

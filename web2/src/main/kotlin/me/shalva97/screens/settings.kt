@@ -9,16 +9,16 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun SettingsPage() {
+fun SettingsScreen() {
     var maxNumberOfChar = 3
     var value by remember {
         mutableStateOf("10")
     }
 
-    Column (
+    Column(
         modifier = Modifier.fillMaxSize().padding(16.dp),
     ) {
-        Row (
+        Row(
             verticalAlignment = Alignment.CenterVertically
         ) {
             Text(

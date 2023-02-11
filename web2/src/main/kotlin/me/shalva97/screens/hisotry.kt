@@ -14,12 +14,17 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.pointer.PointerEventType
 import androidx.compose.ui.input.pointer.onPointerEvent
 import androidx.compose.ui.unit.dp
+import kodein
 import kotlinx.coroutines.launch
 import org.jetbrains.skiko.SkikoPointerEvent
+import org.kodein.di.instance
 
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
-fun HistoryPage(selectedFiles: List<String>) {
+fun HistoryScreen(selectedFiles: List<String>) {
+
+    val viewModel = kodein.instance<HistoryScreenViewModel>()
+
     val scrollState = rememberScrollState()
     val coroutineScope = rememberCoroutineScope()
     Column(
@@ -41,3 +46,8 @@ fun HistoryPage(selectedFiles: List<String>) {
         }
     }
 }
+
+class HistoryScreenViewModel {
+    // TODO use it in above screen
+}
+
