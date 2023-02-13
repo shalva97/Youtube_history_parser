@@ -51,9 +51,8 @@ class HistoryScreenViewModel : DIAware {
     override val di: DI = kodein
     private val historyFilesRepository by instance<HistoryFilesRepository>()
     val selectedFiles: Flow<String> = historyFilesRepository.selectedFiles.map {
-        val first = it.first() // TODO support multiple files
-
         try {
+            val first = it.first() // TODO support multiple files
             YoutubeHistory(first.contents, 10).toString()
         } catch (e: Exception) {
             e.message ?: "Unkown error"
