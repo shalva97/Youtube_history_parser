@@ -15,11 +15,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.pointer.PointerEventType
 import androidx.compose.ui.input.pointer.onPointerEvent
 import androidx.compose.ui.unit.dp
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import me.shalva97.data.HistoryFilesRepository
 import me.shalva97.di.kodein
+import models.HistoryFile
 import org.jetbrains.skiko.SkikoPointerEvent
 import org.kodein.di.DI
 import org.kodein.di.DIAware
@@ -35,8 +37,7 @@ fun HistoryScreen() {
     val scrollState = rememberScrollState()
     val coroutineScope = rememberCoroutineScope()
     Column(
-        modifier = Modifier.padding(16.dp)
-            .verticalScroll(scrollState)
+        modifier = Modifier.padding(16.dp).verticalScroll(scrollState)
             .onPointerEvent(PointerEventType.Scroll) {
                 coroutineScope.launch {
                     scrollState.scrollBy((it.nativeEvent as SkikoPointerEvent).deltaY.toFloat())
@@ -50,14 +51,16 @@ fun HistoryScreen() {
 class HistoryScreenViewModel : DIAware {
     override val di: DI = kodein
     private val historyFilesRepository by instance<HistoryFilesRepository>()
-    val selectedFiles: Flow<String> = historyFilesRepository.selectedFiles.map {
-        try {
-            val first = it.first() // TODO support multiple files
+    val selectedFiles = historyFilesRepository.selectedFiles.map(::parseHistoryToMarkdown)
+        .stateIn(CoroutineScope(Dispatchers.Default), SharingStarted.Lazily, "")
+
+    private fun parseHistoryToMarkdown(files: List<HistoryFile>): String {
+        return try {
+            val first = files.first() // TODO support multiple files
             YoutubeHistory(first.contents, 10).toString()
         } catch (e: Exception) {
             e.message ?: "Unkown error"
         }
     }
-
 }
 
