@@ -30,31 +30,7 @@ then inside `build/libs` folder should be a jar file which you can run
 with `java -jar filename-all.jar history.json`
 
 # this is what it looks like
-
-# TOP 10 Videos
-
-- [THE KNIFE'S EDGE - by Cabal Mind | Battle Rock Music - 144](https://www.youtube.com/watch?v=CZf8dkSWYpo)
-- [UNREACHED - by Mehmet Torcuk | Battle Hybrid Music - 139](https://www.youtube.com/watch?v=zxo60Y5PEeo)
-- [一首超好聽的日語歌 -【Spirits】《 中日歌詞》 - 113](https://www.youtube.com/watch?v=5QhwXoy8CT8)
-- [World's Greatest Battle Music Ever: Elder Hymn by Helblinde - 112](https://www.youtube.com/watch?v=QCsThnjLOyI)
-- [Berserk - My Brother (Extended) (Definitive Version) - 104](https://www.youtube.com/watch?v=lBdnti4_UUg)
-- [Happy Halloween┃Cover by Raon Lee - 98](https://www.youtube.com/watch?v=QbkMuW2gEp4)
-- [Powerwolf - Army of the Night | Music Visualization🖤🎶💎 - 97](https://www.youtube.com/watch?v=7q8D1JqAxxQ)
-- [World's Greatest Battle Music Ever: Bow (Human Design) - 94](https://www.youtube.com/watch?v=kkcq3tX2nOA)
-- [Two Steps From Hell - Star Sky - 94](https://www.youtube.com/watch?v=pICAha0nsb0)
-- [TeddyLoid - Daisuki (feat. Daoko) [Live MIX] | Music Visualization - 93](https://www.youtube.com/watch?v=aedJM1Bgy5E)
-
-# TOP 10 Channels
-
-- [MrEpicOSTs - 1727](https://www.youtube.com/channel/UCHACJmUimC9bVxR6_e9GlHQ)
-- [Thoughts of a Slayer - 840](https://www.youtube.com/channel/UCisb8Fd5_jzoOiRfLSlHMkQ)
-- [FalKKonE - 641](https://www.youtube.com/channel/UChAHYPBvyaQIpjyTSdQhOMQ)
-- [Diversity - 528](https://www.youtube.com/channel/UC7tD6Ifrwbiy-BoaAHEinmQ)
-- [Cabal Mind - 489](https://www.youtube.com/channel/UC2H-gXCiXWfLdf9Be8pQ6Vg)
-- [Two Steps From Hell - 383](https://www.youtube.com/channel/UC3swwxiALG5c0Tvom83tPGg)
-- [My Soul Your Beats - 349](https://www.youtube.com/channel/UC3uiVGgkoJM3X3-gb_qEaDQ)
-
-# Youtube Video History
+## Youtube Video History
 
 ## 2018
 
