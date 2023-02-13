@@ -1,4 +1,4 @@
-package me.shalva97.screens
+package me.shalva97.screens.home.tabs
 
 import YoutubeHistory
 import androidx.compose.foundation.gestures.scrollBy
@@ -8,22 +8,29 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.pointer.PointerEventType
 import androidx.compose.ui.input.pointer.onPointerEvent
 import androidx.compose.ui.unit.dp
-import kodein
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
+import me.shalva97.data.HistoryFilesRepository
+import me.shalva97.di.kodein
 import org.jetbrains.skiko.SkikoPointerEvent
+import org.kodein.di.DI
+import org.kodein.di.DIAware
+import org.kodein.di.compose.localDI
 import org.kodein.di.instance
 
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
-fun HistoryScreen(selectedFiles: List<String>) {
+fun HistoryScreen() {
 
-    val viewModel = kodein.instance<HistoryScreenViewModel>()
+    val viewModel by localDI().instance<HistoryScreenViewModel>()
 
     val scrollState = rememberScrollState()
     val coroutineScope = rememberCoroutineScope()
@@ -36,18 +43,22 @@ fun HistoryScreen(selectedFiles: List<String>) {
                 }
             },
     ) {
-        if (selectedFiles.isNotEmpty()) {
-            val text = try {
-                YoutubeHistory(selectedFiles.first(), 10).toString()
-            } catch (e: Exception) {
-                e.message ?: "Unkown error"
-            }
-            Text(text)
-        }
+        Text(viewModel.selectedFiles.collectAsState("").value)
     }
 }
 
-class HistoryScreenViewModel {
-    // TODO use it in above screen
+class HistoryScreenViewModel : DIAware {
+    override val di: DI = kodein
+    private val historyFilesRepository by instance<HistoryFilesRepository>()
+    val selectedFiles: Flow<String> = historyFilesRepository.selectedFiles.map {
+        val first = it.first() // TODO support multiple files
+
+        try {
+            YoutubeHistory(first.contents, 10).toString()
+        } catch (e: Exception) {
+            e.message ?: "Unkown error"
+        }
+    }
+
 }
 

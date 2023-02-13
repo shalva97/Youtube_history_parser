@@ -1,5 +1,6 @@
 package common
 
+import models.HistoryFile
 import org.w3c.dom.Document
 import org.w3c.dom.HTMLInputElement
 import org.w3c.dom.ItemArrayLike
@@ -9,7 +10,7 @@ import org.w3c.files.FileReader
 import kotlin.coroutines.resume
 import kotlin.coroutines.suspendCoroutine
 
-suspend fun Document.selectAndParseFilesFromDisk(accept: String): List<String> {
+suspend fun Document.selectAndParseFilesFromDisk(accept: String): List<HistoryFile> {
     return selectFilesFromDisk(accept).map { readFileAsText(it) }
 }
 
@@ -37,7 +38,7 @@ private suspend fun readFileAsText(file: File) = suspendCoroutine {
     val reader = FileReader()
     reader.onload = { loadEvt ->
         val content = loadEvt.target.asDynamic().result as String
-        it.resumeWith(Result.success(content))
+        it.resumeWith(Result.success(HistoryFile(file.name, content)))
     }
     reader.readAsText(file, "UTF-8")
 }
