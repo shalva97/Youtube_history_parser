@@ -4,7 +4,6 @@ import androidx.compose.material3.ColorScheme
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.darkColorScheme
 import androidx.compose.material3.lightColorScheme
-import androidx.compose.runtime.Composable
 import androidx.compose.ui.window.Window
 import kotlinx.browser.window
 import me.shalva97.di.kodein
@@ -14,15 +13,12 @@ import org.kodein.di.compose.withDI
 
 fun main() {
     onWasmReady {
-        AppWithDI()
-    }
-}
-
-@Composable
-fun AppWithDI() = withDI(di = kodein) {
-    Window {
-        MaterialTheme(colorScheme = preferredColorScheme()) {
-            HomeScreen()
+        Window {
+            withDI(di = kodein) {
+                MaterialTheme(colorScheme = preferredColorScheme()) {
+                    HomeScreen()
+                }
+            }
         }
     }
 }
