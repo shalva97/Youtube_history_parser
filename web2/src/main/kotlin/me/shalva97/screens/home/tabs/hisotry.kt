@@ -15,11 +15,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.pointer.PointerEventType
 import androidx.compose.ui.input.pointer.onPointerEvent
 import androidx.compose.ui.unit.dp
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import me.shalva97.data.HistoryFilesRepository
+import me.shalva97.di.MAIN
 import me.shalva97.di.kodein
 import models.HistoryFile
 import org.jetbrains.skiko.SkikoPointerEvent
@@ -50,9 +51,11 @@ fun HistoryScreen() {
 
 class HistoryScreenViewModel : DIAware {
     override val di: DI = kodein
+    private val dispatcher by instance<CoroutineDispatcher>(tag = MAIN)
+    private val viewModelScope = CoroutineScope(dispatcher)
     private val historyFilesRepository by instance<HistoryFilesRepository>()
     val selectedFiles = historyFilesRepository.selectedFiles.map(::parseHistoryToMarkdown)
-        .stateIn(CoroutineScope(Dispatchers.Default), SharingStarted.Lazily, "")
+        .stateIn(viewModelScope, SharingStarted.Lazily, "")
 
     private fun parseHistoryToMarkdown(files: List<HistoryFile>): String {
         return try {
