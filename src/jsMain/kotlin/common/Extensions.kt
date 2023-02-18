@@ -1,6 +1,6 @@
 package common
 
-import models.HistoryFile
+import gui.models.HistoryFile
 import org.w3c.dom.Document
 import org.w3c.dom.HTMLInputElement
 import org.w3c.dom.ItemArrayLike

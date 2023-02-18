@@ -1,11 +1,8 @@
-package me.shalva97.data
+package gui.data
 
+import gui.models.HistoryFile
 import kotlinx.coroutines.flow.MutableStateFlow
-import models.HistoryFile
 
 class HistoryFilesRepository {
-    val selectedFileNames = mutableListOf<String>()
     val selectedFiles: MutableStateFlow<List<HistoryFile>> = MutableStateFlow(emptyList())
-    val parsedHistory = ""
-//    val
 }

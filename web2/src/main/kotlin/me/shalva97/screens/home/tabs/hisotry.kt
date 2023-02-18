@@ -15,14 +15,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.pointer.PointerEventType
 import androidx.compose.ui.input.pointer.onPointerEvent
 import androidx.compose.ui.unit.dp
+import gui.data.HistoryFilesRepository
+import gui.models.HistoryFile
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
-import me.shalva97.data.HistoryFilesRepository
 import me.shalva97.di.MAIN
 import me.shalva97.di.kodein
-import models.HistoryFile
 import org.jetbrains.skiko.SkikoPointerEvent
 import org.kodein.di.DI
 import org.kodein.di.DIAware

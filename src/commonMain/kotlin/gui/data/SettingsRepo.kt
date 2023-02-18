@@ -1,3 +1,5 @@
+package gui.data
+
 import kotlinx.coroutines.flow.MutableStateFlow
 
 class SettingsRepo {
