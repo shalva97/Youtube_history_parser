@@ -43,12 +43,14 @@ kotlin {
 
     js(IR) {
         browser()
+        binaries.executable()
     }
 
     sourceSets {
         val commonMain by getting
         val jsMain by getting {
             dependencies {
+                implementation(kotlin("stdlib-js"))
                 implementation("org.jetbrains.kotlinx:kotlinx-html:0.8.1")
             }
         }
