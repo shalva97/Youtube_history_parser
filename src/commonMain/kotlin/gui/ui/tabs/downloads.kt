@@ -1,9 +1,9 @@
-package me.shalva97.screens
+package gui.ui.tabs
 
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 
 @Composable
-fun DownloadsPage() {
+fun DownloadsScreen() {
     Text("Downloads page")
 }
