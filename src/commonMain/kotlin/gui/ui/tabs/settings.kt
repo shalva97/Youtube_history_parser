@@ -1,4 +1,4 @@
-package me.shalva97.screens.home.tabs
+package gui.ui.tabs
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.ExperimentalMaterial3Api

@@ -1,4 +1,4 @@
-package me.shalva97.domain.models
+package gui.models
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Download

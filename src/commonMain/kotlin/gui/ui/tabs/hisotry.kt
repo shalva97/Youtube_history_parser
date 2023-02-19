@@ -1,4 +1,4 @@
-package me.shalva97.screens.home.tabs
+package gui.ui.tabs
 
 import YoutubeHistory
 import androidx.compose.foundation.gestures.scrollBy
@@ -16,13 +16,13 @@ import androidx.compose.ui.input.pointer.PointerEventType
 import androidx.compose.ui.input.pointer.onPointerEvent
 import androidx.compose.ui.unit.dp
 import gui.data.HistoryFilesRepository
+import gui.di.MAIN
+import gui.di.kodein
 import gui.models.HistoryFile
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
-import me.shalva97.di.MAIN
-import me.shalva97.di.kodein
 import org.jetbrains.skiko.SkikoPointerEvent
 import org.kodein.di.DI
 import org.kodein.di.DIAware

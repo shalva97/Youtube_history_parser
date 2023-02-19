@@ -1,4 +1,4 @@
-package me.shalva97.screens.home
+package gui.ui
 
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -9,17 +9,16 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import common.selectAndParseFilesFromDisk
 import gui.data.HistoryFilesRepository
+import gui.di.kodein
+import gui.domain.selectAndParseFilesFromDisk
 import gui.models.HistoryFile
-import kotlinx.browser.document
+import gui.models.HomeTab
+import gui.ui.tabs.DownloadsScreen
+import gui.ui.tabs.HistoryScreen
+import gui.ui.tabs.SettingsScreen
+import gui.ui.tabs.StatsScreen
 import kotlinx.coroutines.launch
-import me.shalva97.di.kodein
-import me.shalva97.domain.models.HomeTab
-import me.shalva97.screens.home.tabs.DownloadsScreen
-import me.shalva97.screens.home.tabs.HistoryScreen
-import me.shalva97.screens.home.tabs.SettingsScreen
-import me.shalva97.screens.home.tabs.StatsScreen
 import org.kodein.di.DI
 import org.kodein.di.DIAware
 import org.kodein.di.compose.localDI
@@ -37,9 +36,7 @@ fun HomeScreen() {
             NavigationRail {
                 FloatingActionButton(onClick = {
                     localScope.launch {
-                        viewModel.setSelectedFiles(
-                            document.selectAndParseFilesFromDisk(".json")
-                        )
+                        viewModel.setSelectedFiles(selectAndParseFilesFromDisk())
                     }
                 }) {
                     Icon(Icons.Filled.Add, contentDescription = "Add")

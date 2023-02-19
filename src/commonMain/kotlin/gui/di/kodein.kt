@@ -1,11 +1,11 @@
-package me.shalva97.di
+package gui.di
 
 import gui.data.HistoryFilesRepository
 import gui.data.SettingsRepo
+import gui.ui.HomeScreenViewModel
+import gui.ui.tabs.HistoryScreenViewModel
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
-import me.shalva97.screens.home.HomeScreenViewModel
-import me.shalva97.screens.home.tabs.HistoryScreenViewModel
 import org.kodein.di.DI
 import org.kodein.di.bindProvider
 import org.kodein.di.bindSingleton
