@@ -38,6 +38,9 @@ kotlin {
             kotlinOptions {
                 jvmTarget = "11"
             }
+            dependencies {
+                implementation(compose.desktop.macos_x64)
+            }
         }
     }
 

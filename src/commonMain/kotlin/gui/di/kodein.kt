@@ -10,13 +10,15 @@ import org.kodein.di.DI
 import org.kodein.di.bindProvider
 import org.kodein.di.bindSingleton
 
+expect fun mainDispatcher(): CoroutineDispatcher
+
 val kodein = DI {
     bindSingleton { SettingsRepo() }
     bindSingleton { HistoryScreenViewModel() }
     bindSingleton { HomeScreenViewModel() }
     bindSingleton { HistoryFilesRepository() }
     bindProvider(tag = DEFAULT) { Dispatchers.Default }
-    bindProvider<CoroutineDispatcher>(tag = MAIN) { Dispatchers.Main }
+    bindProvider(tag = MAIN) { mainDispatcher() }
     bindProvider(tag = IO) { Dispatchers.Default }
 }
 
