@@ -36,7 +36,7 @@ kotlin {
     jvm {
         val main by compilations.getting {
             kotlinOptions {
-                jvmTarget = "11"
+                jvmTarget = JavaVersion.VERSION_11.toString()
             }
             dependencies {
                 implementation(compose.desktop.macos_x64)
