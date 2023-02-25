@@ -38,10 +38,12 @@ fun HistoryScreen() {
     val scrollState = rememberScrollState()
     val coroutineScope = rememberCoroutineScope()
     Column(
-        modifier = Modifier.padding(16.dp).verticalScroll(scrollState)
+        modifier = Modifier.padding(horizontal = 16.dp).verticalScroll(scrollState)
             .onPointerEvent(PointerEventType.Scroll) {
                 coroutineScope.launch {
-                    scrollState.scrollBy((it.nativeEvent as SkikoPointerEvent).deltaY.toFloat())
+                    scrollState.scrollBy(
+                        (it.nativeEvent as? SkikoPointerEvent)?.deltaY?.toFloat() ?: return@launch
+                    )
                 }
             },
     ) {

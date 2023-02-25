@@ -40,6 +40,7 @@ kotlin {
             }
             dependencies {
                 implementation(compose.desktop.macos_x64)
+//                implementation("org.eclipse.swt.cocoa.macosx.x86_64:4.4")
             }
         }
     }
