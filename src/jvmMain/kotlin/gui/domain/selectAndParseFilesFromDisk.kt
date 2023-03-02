@@ -11,7 +11,6 @@ actual suspend fun selectAndParseFilesFromDisk(): List<HistoryFile> {
         isMultipleMode = true
         isVisible = true
     }
-
     return listOf(
         HistoryFile(selectedFile.file, File(selectedFile.directory, selectedFile.file).readText())
     )
