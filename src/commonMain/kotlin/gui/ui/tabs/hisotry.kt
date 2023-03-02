@@ -63,6 +63,8 @@ class HistoryScreenViewModel : DIAware {
         return try {
             val first = files.first() // TODO support multiple files
             YoutubeHistory(first.contents, 10).toString()
+        } catch (e: NoSuchElementException) {
+            "No files selected"
         } catch (e: Exception) {
             e.message ?: "Unkown error"
         }
