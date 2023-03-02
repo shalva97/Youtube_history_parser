@@ -41,7 +41,6 @@ kotlin {
             dependencies {
                 implementation(compose.desktop.macos_x64)
                 implementation("com.darkrockstudios:mpfilepicker:1.0.0")
-//                implementation("org.eclipse.swt.cocoa.macosx.x86_64:4.4")
             }
         }
     }
