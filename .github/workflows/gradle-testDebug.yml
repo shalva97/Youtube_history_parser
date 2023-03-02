@@ -14,4 +14,4 @@ jobs:
           cache: 'gradle'
       - uses: gradle/gradle-build-action@v2
         with:
-          arguments: jvmTest assemble
+          arguments: jvmTest jsBrowserDevelopmentExecutableDistribution
