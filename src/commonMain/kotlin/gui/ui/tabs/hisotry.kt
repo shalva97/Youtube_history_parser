@@ -12,10 +12,12 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.input.pointer.PointerEvent
 import androidx.compose.ui.input.pointer.PointerEventType
 import androidx.compose.ui.input.pointer.onPointerEvent
 import androidx.compose.ui.unit.dp
 import gui.data.HistoryFilesRepository
+import gui.data.SettingsRepo
 import gui.di.MAIN
 import gui.di.kodein
 import gui.models.HistoryFile
@@ -41,9 +43,7 @@ fun HistoryScreen() {
         modifier = Modifier.padding(horizontal = 16.dp).verticalScroll(scrollState)
             .onPointerEvent(PointerEventType.Scroll) {
                 coroutineScope.launch {
-                    scrollState.scrollBy(
-                        (it.nativeEvent as? SkikoPointerEvent)?.deltaY?.toFloat() ?: return@launch
-                    )
+                    scrollState.scrollBy(scrollAmount(it) ?: return@launch)
                 }
             },
     ) {
@@ -56,13 +56,17 @@ class HistoryScreenViewModel : DIAware {
     private val dispatcher by instance<CoroutineDispatcher>(tag = MAIN)
     private val viewModelScope = CoroutineScope(dispatcher)
     private val historyFilesRepository by instance<HistoryFilesRepository>()
-    val selectedFiles = historyFilesRepository.selectedFiles.map(::parseHistoryToMarkdown)
+    private val settingsRepo by instance<SettingsRepo>()
+
+    val selectedFiles = historyFilesRepository.selectedFiles
+        .combine(settingsRepo.minimumAmountOfVideoClicks, ::YoutubeHistoryParams)
+        .map(::parseHistoryToMarkdown)
         .stateIn(viewModelScope, SharingStarted.Lazily, "")
 
-    private fun parseHistoryToMarkdown(files: List<HistoryFile>): String {
+    private fun parseHistoryToMarkdown(youtubeHistoryParams: YoutubeHistoryParams): String {
         return try {
-            val first = files.first() // TODO support multiple files
-            YoutubeHistory(first.contents, 10).toString()
+            val first = youtubeHistoryParams.historyFiles.first() // TODO support multiple files
+            YoutubeHistory(first.contents, youtubeHistoryParams.amount).toString()
         } catch (e: NoSuchElementException) {
             "No files selected"
         } catch (e: Exception) {
@@ -71,3 +75,7 @@ class HistoryScreenViewModel : DIAware {
     }
 }
 
+private data class YoutubeHistoryParams(val historyFiles: List<HistoryFile>, val amount: Int)
+
+private fun scrollAmount(it: PointerEvent) =
+    (it.nativeEvent as? SkikoPointerEvent)?.deltaY?.toFloat()
