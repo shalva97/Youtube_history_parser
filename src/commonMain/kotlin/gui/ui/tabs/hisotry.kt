@@ -47,7 +47,7 @@ fun HistoryScreen() {
                 }
             },
     ) {
-        Text(viewModel.selectedFiles.collectAsState("").value)
+        Text(viewModel.markdownText.collectAsState("").value)
     }
 }
 
@@ -58,10 +58,12 @@ class HistoryScreenViewModel : DIAware {
     private val historyFilesRepository by instance<HistoryFilesRepository>()
     private val settingsRepo by instance<SettingsRepo>()
 
-    val selectedFiles = historyFilesRepository.selectedFiles
+    val markdownText = historyFilesRepository.selectedFiles
         .combine(settingsRepo.minimumAmountOfVideoClicks, ::YoutubeHistoryParams)
         .map(::parseHistoryToMarkdown)
-        .stateIn(viewModelScope, SharingStarted.Lazily, "")
+        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(), "")
+        .onSubscription { println("-- subscribed") }
+        .onCompletion { println("-- onCompletion") }
 
     private fun parseHistoryToMarkdown(youtubeHistoryParams: YoutubeHistoryParams): String {
         return try {
