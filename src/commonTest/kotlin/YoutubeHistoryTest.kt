@@ -30,14 +30,6 @@ class YoutubeHistoryTest {
 
         assertEquals(youtubeHistory, history.toString())
     }
-
-    @Test
-    fun blah() {
-        val history = YoutubeHistory(sampleData, 0)
-
-        history.getTopTenChannels()
-            .forEach { it.println() }
-    }
 }
 
 private fun Any.println() {

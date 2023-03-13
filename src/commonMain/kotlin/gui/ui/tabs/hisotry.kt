@@ -59,11 +59,10 @@ class HistoryScreenViewModel : DIAware {
     private val settingsRepo by instance<SettingsRepo>()
 
     val markdownText = historyFilesRepository.selectedFiles
+        .onEach { println("------- $it") }
         .combine(settingsRepo.minimumAmountOfVideoClicks, ::YoutubeHistoryParams)
         .map(::parseHistoryToMarkdown)
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(), "")
-        .onSubscription { println("-- subscribed") }
-        .onCompletion { println("-- onCompletion") }
 
     private fun parseHistoryToMarkdown(youtubeHistoryParams: YoutubeHistoryParams): String {
         return try {
