@@ -1,6 +1,5 @@
 package gui.ui.tabs
 
-import YoutubeHistory
 import androidx.compose.foundation.gestures.scrollBy
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
@@ -18,11 +17,7 @@ import androidx.compose.ui.input.pointer.onPointerEvent
 import androidx.compose.ui.unit.dp
 import gui.data.HistoryFilesRepository
 import gui.data.SettingsRepo
-import gui.di.MAIN
 import gui.di.kodein
-import gui.models.HistoryFile
-import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import org.jetbrains.skiko.SkikoPointerEvent
@@ -53,30 +48,12 @@ fun HistoryScreen() {
 
 class HistoryScreenViewModel : DIAware {
     override val di: DI = kodein
-    private val dispatcher by instance<CoroutineDispatcher>(tag = MAIN)
-    private val viewModelScope = CoroutineScope(dispatcher)
     private val historyFilesRepository by instance<HistoryFilesRepository>()
     private val settingsRepo by instance<SettingsRepo>()
 
-    val markdownText = historyFilesRepository.selectedFiles
-        .onEach { println("------- $it") }
-        .combine(settingsRepo.minimumAmountOfVideoClicks, ::YoutubeHistoryParams)
-        .map(::parseHistoryToMarkdown)
-        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(), "")
+    val markdownText = historyFilesRepository.markdownText
 
-    private fun parseHistoryToMarkdown(youtubeHistoryParams: YoutubeHistoryParams): String {
-        return try {
-            val first = youtubeHistoryParams.historyFiles.first() // TODO support multiple files
-            YoutubeHistory(first.contents, youtubeHistoryParams.amount).toString()
-        } catch (e: NoSuchElementException) {
-            "No files selected"
-        } catch (e: Exception) {
-            e.message ?: "Unkown error"
-        }
-    }
 }
-
-private data class YoutubeHistoryParams(val historyFiles: List<HistoryFile>, val amount: Int)
 
 private fun scrollAmount(it: PointerEvent) =
     (it.nativeEvent as? SkikoPointerEvent)?.deltaY?.toFloat()

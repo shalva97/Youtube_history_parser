@@ -4,34 +4,29 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.test.runTest
 import kotlin.test.Test
+import kotlin.test.assertEquals
 
 @OptIn(ExperimentalCoroutinesApi::class)
 class Learning {
 
     @Test
     fun someRandomLearningTest() = runTest {
-        val viewModelScope = CoroutineScope(Dispatchers.Default)
-        var minClicks = 10
-        var numberOfMapExecution = 0
+        val someRandomScope = CoroutineScope(Dispatchers.Default)
+        val selectedFiles = MutableStateFlow(123)
+        val minimumAmountOfVideoClicks = MutableStateFlow(123)
 
+        val data = selectedFiles.combine(minimumAmountOfVideoClicks) { i: Int, i1: Int -> i + i1 }
+            .onEach { println("--- before debounce") }
+            .debounce(2000)
+            .onEach { println("--- after debounce") }
+            .map(::doSomeWork)
+            .stateIn(someRandomScope, SharingStarted.Lazily, 0)
 
-        val mutableSharedFlow = MutableSharedFlow<Int>()
-        val data = mutableSharedFlow
-            .map {
-                println("Doing some heavy calculations")
-                numberOfMapExecution += 1
-                it + 5
-            }
-            .stateIn(viewModelScope, SharingStarted.WhileSubscribed(), 0)
-            .onSubscription { println("-- subscribed") }
-            .onCompletion { println("-- onCompletion") }
+        assertEquals(60516, data.take(2).last())
+        assertEquals(60516, data.first())
+    }
 
-        val asdf = (data.take(2).first())
-        val asdf1 = data.first()
-        val asdf2 = data.first()
-//        assertEquals(6, data.first())
-//        assertEquals(6, data.first())
-//        assertEquals(1, numberOfMapExecution)
-        1
+    private fun doSomeWork(n: Int): Int {
+        return n * n
     }
 }

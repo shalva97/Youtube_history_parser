@@ -1,6 +1,7 @@
 package gui.ui.tabs
 
 import androidx.compose.foundation.layout.*
+import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
@@ -17,8 +18,9 @@ import org.kodein.di.instance
 fun SettingsScreen() {
 
     val settingsRepo: SettingsRepo by localDI().instance()
-
-    val minVideoClicks by settingsRepo.minimumAmountOfVideoClicks.collectAsState()
+    var minVideoClicks by remember {
+        mutableStateOf(settingsRepo.minimumAmountOfVideoClicks.value.toString())
+    }
 
     Column(
         modifier = Modifier.fillMaxSize().padding(16.dp),
@@ -29,14 +31,19 @@ fun SettingsScreen() {
             Text(
                 text = "Minimum video clicks:"
             )
-            OutlinedTextField(modifier = Modifier.height(50.dp).width(150.dp),
-                value = minVideoClicks.toString(),
+            OutlinedTextField(modifier = Modifier.width(150.dp).padding(horizontal = 16.dp),
+                value = minVideoClicks,
                 singleLine = true,
                 onValueChange = { newText ->
                     if (newText.length <= MAX_NUMBER_OF_CHARS) {
-                        settingsRepo.setMinClicks(newText.filter { it.isDigit() }.toInt())
+                        minVideoClicks = newText
                     }
                 })
+            Button(onClick = {
+                settingsRepo.setMinClicks(minVideoClicks.toInt())
+            }) {
+                Text("Apply")
+            }
         }
     }
 }
