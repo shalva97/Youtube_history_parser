@@ -1,6 +1,5 @@
 package gui.ui.tabs
 
-import YoutubeHistory
 import androidx.compose.foundation.gestures.scrollBy
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
@@ -12,15 +11,13 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.input.pointer.PointerEvent
 import androidx.compose.ui.input.pointer.PointerEventType
 import androidx.compose.ui.input.pointer.onPointerEvent
 import androidx.compose.ui.unit.dp
 import gui.data.HistoryFilesRepository
-import gui.di.MAIN
+import gui.data.SettingsRepo
 import gui.di.kodein
-import gui.models.HistoryFile
-import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import org.jetbrains.skiko.SkikoPointerEvent
@@ -41,33 +38,22 @@ fun HistoryScreen() {
         modifier = Modifier.padding(horizontal = 16.dp).verticalScroll(scrollState)
             .onPointerEvent(PointerEventType.Scroll) {
                 coroutineScope.launch {
-                    scrollState.scrollBy(
-                        (it.nativeEvent as? SkikoPointerEvent)?.deltaY?.toFloat() ?: return@launch
-                    )
+                    scrollState.scrollBy(scrollAmount(it) ?: return@launch)
                 }
             },
     ) {
-        Text(viewModel.selectedFiles.collectAsState("").value)
+        Text(viewModel.markdownText.collectAsState("").value)
     }
 }
 
 class HistoryScreenViewModel : DIAware {
     override val di: DI = kodein
-    private val dispatcher by instance<CoroutineDispatcher>(tag = MAIN)
-    private val viewModelScope = CoroutineScope(dispatcher)
     private val historyFilesRepository by instance<HistoryFilesRepository>()
-    val selectedFiles = historyFilesRepository.selectedFiles.map(::parseHistoryToMarkdown)
-        .stateIn(viewModelScope, SharingStarted.Lazily, "")
+    private val settingsRepo by instance<SettingsRepo>()
 
-    private fun parseHistoryToMarkdown(files: List<HistoryFile>): String {
-        return try {
-            val first = files.first() // TODO support multiple files
-            YoutubeHistory(first.contents, 10).toString()
-        } catch (e: NoSuchElementException) {
-            "No files selected"
-        } catch (e: Exception) {
-            e.message ?: "Unkown error"
-        }
-    }
+    val markdownText = historyFilesRepository.markdownText
+
 }
 
+private fun scrollAmount(it: PointerEvent) =
+    (it.nativeEvent as? SkikoPointerEvent)?.deltaY?.toFloat()

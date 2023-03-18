@@ -51,7 +51,14 @@ kotlin {
     }
 
     sourceSets {
-        val commonMain by getting
+        val commonMain by getting {
+
+        }
+        val commonTest by getting {
+            dependencies {
+                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.4")
+            }
+        }
         val jsMain by getting {
             dependencies {
                 implementation(kotlin("stdlib-js"))
