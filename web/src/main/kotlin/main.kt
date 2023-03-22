@@ -76,6 +76,6 @@ fun VersionNumber() {
             textAlign("right")
         }
     }) {
-        Text("Version: " + "2.0.4") // TODO somehow get version name from Gradle
+        Text("Version: " + "2.1.0") // TODO somehow get version name from Gradle
     }
 }

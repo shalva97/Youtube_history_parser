@@ -16,7 +16,6 @@ import androidx.compose.ui.input.pointer.PointerEventType
 import androidx.compose.ui.input.pointer.onPointerEvent
 import androidx.compose.ui.unit.dp
 import gui.data.HistoryFilesRepository
-import gui.data.SettingsRepo
 import gui.di.kodein
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
@@ -49,10 +48,7 @@ fun HistoryScreen() {
 class HistoryScreenViewModel : DIAware {
     override val di: DI = kodein
     private val historyFilesRepository by instance<HistoryFilesRepository>()
-    private val settingsRepo by instance<SettingsRepo>()
-
     val markdownText = historyFilesRepository.markdownText
-
 }
 
 private fun scrollAmount(it: PointerEvent) =
