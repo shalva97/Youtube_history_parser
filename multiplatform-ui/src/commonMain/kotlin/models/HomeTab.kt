@@ -1,4 +1,4 @@
-package gui.models
+package models
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Download

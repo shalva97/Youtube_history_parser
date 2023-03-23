@@ -1,4 +1,4 @@
-package gui.ui.tabs
+package ui.tabs
 
 import androidx.compose.foundation.gestures.scrollBy
 import androidx.compose.foundation.layout.Column
@@ -15,8 +15,8 @@ import androidx.compose.ui.input.pointer.PointerEvent
 import androidx.compose.ui.input.pointer.PointerEventType
 import androidx.compose.ui.input.pointer.onPointerEvent
 import androidx.compose.ui.unit.dp
-import gui.data.HistoryFilesRepository
-import gui.di.kodein
+import data.HistoryFilesRepository
+import di.kodein
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import org.jetbrains.skiko.SkikoPointerEvent

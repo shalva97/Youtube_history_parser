@@ -1,4 +1,4 @@
-package gui.ui.tabs
+package ui.tabs
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.Button
@@ -9,7 +9,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import gui.data.SettingsRepo
+import data.SettingsRepo
 import org.kodein.di.compose.localDI
 import org.kodein.di.instance
 

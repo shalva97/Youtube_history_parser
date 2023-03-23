@@ -1,7 +1,7 @@
-package gui.domain
+package domain
 
-import gui.models.HistoryFile
 import kotlinx.browser.document
+import models.HistoryFile
 import org.w3c.dom.Document
 import org.w3c.dom.HTMLInputElement
 import org.w3c.dom.ItemArrayLike

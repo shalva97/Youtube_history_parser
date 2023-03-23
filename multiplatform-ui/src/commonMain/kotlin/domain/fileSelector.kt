@@ -1,5 +1,5 @@
-package gui.domain
+package domain
 
-import gui.models.HistoryFile
+import models.HistoryFile
 
 expect suspend fun selectAndParseFilesFromDisk(): List<HistoryFile>

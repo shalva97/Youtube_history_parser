@@ -4,9 +4,9 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.application
 import androidx.compose.ui.window.rememberWindowState
-import gui.di.kodein
-import gui.ui.HomeScreen
+import di.kodein
 import org.kodein.di.compose.withDI
+import ui.HomeScreen
 
 fun main() = application {
     Window(

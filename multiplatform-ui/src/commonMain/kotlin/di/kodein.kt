@@ -1,14 +1,14 @@
-package gui.di
+package di
 
-import gui.data.HistoryFilesRepository
-import gui.data.SettingsRepo
-import gui.ui.HomeScreenViewModel
-import gui.ui.tabs.HistoryScreenViewModel
+import data.HistoryFilesRepository
+import data.SettingsRepo
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import org.kodein.di.DI
 import org.kodein.di.bindProvider
 import org.kodein.di.bindSingleton
+import ui.HomeScreenViewModel
+import ui.tabs.HistoryScreenViewModel
 
 expect fun mainDispatcher(): CoroutineDispatcher
 

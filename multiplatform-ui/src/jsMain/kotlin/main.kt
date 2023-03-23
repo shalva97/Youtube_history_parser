@@ -3,11 +3,11 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.darkColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.ui.window.Window
-import gui.di.kodein
-import gui.ui.HomeScreen
+import di.kodein
 import kotlinx.browser.window
 import org.jetbrains.skiko.wasm.onWasmReady
 import org.kodein.di.compose.withDI
+import ui.HomeScreen
 
 fun main() {
     onWasmReady {

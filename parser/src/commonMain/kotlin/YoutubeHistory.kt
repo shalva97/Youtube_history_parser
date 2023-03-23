@@ -102,7 +102,3 @@ class YoutubeHistory(
     }
 
 }
-
-class NoVideoFoundException(
-    minVideoClicks: Int,
-) : Exception("There is no video that appears $minVideoClicks times, please decrease minVideoClicks parameter")

@@ -1,6 +1,6 @@
-package gui.domain
+package domain
 
-import gui.models.HistoryFile
+import models.HistoryFile
 import java.awt.FileDialog
 import java.awt.Frame
 import java.io.File

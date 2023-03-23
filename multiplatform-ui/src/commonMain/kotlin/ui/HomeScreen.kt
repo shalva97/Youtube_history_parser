@@ -1,4 +1,4 @@
-package gui.ui
+package ui
 
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -9,20 +9,20 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import gui.data.HistoryFilesRepository
-import gui.di.kodein
-import gui.domain.selectAndParseFilesFromDisk
-import gui.models.HistoryFile
-import gui.models.HomeTab
-import gui.ui.tabs.DownloadsScreen
-import gui.ui.tabs.HistoryScreen
-import gui.ui.tabs.SettingsScreen
-import gui.ui.tabs.StatsScreen
+import data.HistoryFilesRepository
+import di.kodein
+import domain.selectAndParseFilesFromDisk
 import kotlinx.coroutines.launch
+import models.HistoryFile
+import models.HomeTab
 import org.kodein.di.DI
 import org.kodein.di.DIAware
 import org.kodein.di.compose.localDI
 import org.kodein.di.instance
+import ui.tabs.DownloadsScreen
+import ui.tabs.HistoryScreen
+import ui.tabs.SettingsScreen
+import ui.tabs.StatsScreen
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
