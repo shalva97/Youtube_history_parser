@@ -1,32 +1,16 @@
 import org.jetbrains.compose.ExperimentalComposeLibrary
 
 plugins {
-    kotlin("multiplatform")
-    id("org.jetbrains.compose")
+    kotlin("multiplatform") version "1.8.0"
+    kotlin("plugin.serialization") version "1.8.0"
+    id("com.adarshr.test-logger") version "3.2.0"
+    id("org.jetbrains.compose") version "1.3.0"
 }
-
-group = "me.shalva97"
-version = "2.1.0"
 
 repositories {
     mavenCentral()
     maven("https://maven.pkg.jetbrains.space/public/p/kotlinx-html/maven")
     maven("https://maven.pkg.jetbrains.space/public/p/compose/dev")
-}
-
-dependencies {
-    commonMainImplementation("junit:junit:4.13.2")
-    commonTestImplementation(kotlin("test-junit"))
-    commonMainImplementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.4.1")
-    commonMainImplementation("org.jetbrains.kotlinx:kotlinx-datetime:0.4.0")
-    commonMainImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4")
-    commonMainImplementation("org.kodein.di:kodein-di-framework-compose:7.18.0")
-    commonMainImplementation("org.kodein.di:kodein-di:7.18.0")
-    commonMainImplementation(compose.ui)
-    commonMainImplementation(compose.foundation)
-    commonMainImplementation(compose.materialIconsExtended)
-    @OptIn(ExperimentalComposeLibrary::class) commonMainImplementation(compose.material3)
-    commonMainImplementation(compose.runtime)
 }
 
 kotlin {
@@ -50,6 +34,18 @@ kotlin {
     sourceSets {
         val commonMain by getting {
             dependencies {
+                implementation("junit:junit:4.13.2")
+                implementation(kotlin("test-junit"))
+                implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.4.1")
+                implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.4.0")
+                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4")
+                implementation("org.kodein.di:kodein-di-framework-compose:7.18.0")
+                implementation("org.kodein.di:kodein-di:7.18.0")
+                implementation(compose.ui)
+                implementation(compose.foundation)
+                implementation(compose.materialIconsExtended)
+                @OptIn(ExperimentalComposeLibrary::class) implementation(compose.material3)
+                implementation(compose.runtime)
                 implementation(project(":parser"))
             }
         }
@@ -65,4 +61,8 @@ kotlin {
             }
         }
     }
+}
+
+compose.experimental {
+    web.application {}
 }
