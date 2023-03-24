@@ -11,6 +11,9 @@ repositories {
     maven("https://maven.pkg.jetbrains.space/public/p/compose/dev")
 }
 
+group = "me.shalva97"
+version = "2.2.0"
+
 kotlin {
     jvm {
         val main by compilations.getting {
