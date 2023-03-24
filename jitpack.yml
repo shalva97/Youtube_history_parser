@@ -1,5 +1,4 @@
 jdk:
   - openjdk11
 install:
-  - echo "Running a custom install command"
-  - ./gradlew -xtest clean publishJvmPublicationToMavenLocal
+  - ./gradlew -xtest clean publishKotlinMultiplatformPublicationToMavenLocal
