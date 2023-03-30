@@ -1,10 +1,10 @@
 import org.jetbrains.compose.ExperimentalComposeLibrary
 
 plugins {
-    kotlin("multiplatform") version "1.8.0"
-    kotlin("plugin.serialization") version "1.8.0"
-    id("com.adarshr.test-logger") version "3.2.0"
-    id("org.jetbrains.compose") version "1.3.0"
+    kotlin("multiplatform")
+    kotlin("plugin.serialization")
+    id("com.adarshr.test-logger")
+    id("org.jetbrains.compose")
 }
 
 repositories {
@@ -36,11 +36,11 @@ kotlin {
             dependencies {
                 implementation("junit:junit:4.13.2")
                 implementation(kotlin("test-junit"))
-                implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.4.1")
+                implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.5.0")
                 implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.4.0")
                 implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4")
-                implementation("org.kodein.di:kodein-di-framework-compose:7.18.0")
-                implementation("org.kodein.di:kodein-di:7.18.0")
+                implementation("org.kodein.di:kodein-di-framework-compose:7.19.0")
+                implementation("org.kodein.di:kodein-di:7.19.0")
                 implementation(compose.ui)
                 implementation(compose.foundation)
                 implementation(compose.materialIconsExtended)
