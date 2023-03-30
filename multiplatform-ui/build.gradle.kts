@@ -40,7 +40,7 @@ kotlin {
                 implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.4.0")
                 implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4")
                 implementation("org.kodein.di:kodein-di-framework-compose:7.19.0")
-                implementation("org.kodein.di:kodein-di:7.18.0")
+                implementation("org.kodein.di:kodein-di:7.19.0")
                 implementation(compose.ui)
                 implementation(compose.foundation)
                 implementation(compose.materialIconsExtended)
