@@ -3,11 +3,15 @@ package ui
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.CopyAll
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalClipboardManager
+import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.unit.dp
 import data.HistoryFilesRepository
 import di.kodein
@@ -31,8 +35,21 @@ fun HomeScreen() {
     var selectedTab by remember { mutableStateOf(HomeTab.HISTORY) }
     val localScope = rememberCoroutineScope()
 
-    Scaffold {
-        Row {
+    Scaffold(topBar = {
+        TopAppBar({
+            Text("Youtube History Parser")
+        }, actions = {
+            if (selectedTab == HomeTab.HISTORY) {
+                val clipboardManager = LocalClipboardManager.current
+                IconButton({
+                    clipboardManager.setText(AnnotatedString(viewModel.getHistoryAsMarkdown()))
+                }) {
+                    Icon(Icons.Filled.CopyAll, contentDescription = "Copy all")
+                }
+            }
+        })
+    }) {
+        Row(modifier = Modifier.padding(it)) {
             NavigationRail {
                 FloatingActionButton(onClick = {
                     localScope.launch {
@@ -70,6 +87,8 @@ class HomeScreenViewModel : DIAware {
     fun setSelectedFiles(files: List<HistoryFile>) {
         historyFilesRepository.selectedFiles.tryEmit(files)
     }
+
+    fun getHistoryAsMarkdown() = historyFilesRepository.markdownText.value
 
     override val di: DI = kodein
 }
