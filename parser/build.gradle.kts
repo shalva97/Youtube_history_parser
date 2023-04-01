@@ -5,12 +5,6 @@ plugins {
     `maven-publish`
 }
 
-repositories {
-    mavenCentral()
-    maven("https://maven.pkg.jetbrains.space/public/p/kotlinx-html/maven")
-    maven("https://maven.pkg.jetbrains.space/public/p/compose/dev")
-}
-
 group = "me.shalva97"
 version = "2.2.0"
 
