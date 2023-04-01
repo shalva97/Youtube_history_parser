@@ -27,6 +27,7 @@ kotlin {
         val commonMain by getting {
             dependencies {
                 implementation("org.jetbrains.kotlinx:kotlinx-cli:0.3.5")
+                implementation(project(":parser"))
             }
         }
         val jvmMain by getting
