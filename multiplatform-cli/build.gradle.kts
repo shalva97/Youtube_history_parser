@@ -9,6 +9,8 @@ application {
     mainClass.set("MainKt")
 }
 
+version = "0.0.1"
+
 kotlin {
     jvm {
         withJava() // Needed for application plugin to find main class
@@ -19,8 +21,22 @@ kotlin {
         }
     }
 
-    macosX64() {
-        binaries
+    macosX64 {
+        binaries {
+            executable {
+                entryPoint = "main"
+                baseName = "youtube-history-parser-$version-macosX64"
+            }
+        }
+    }
+
+    linuxX64 {
+        binaries {
+            executable {
+                entryPoint = "main"
+                baseName = "youtube-history-parser-$version-linuxX64"
+            }
+        }
     }
 
     sourceSets {
