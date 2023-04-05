@@ -5,7 +5,7 @@ on: workflow_dispatch
 jobs:
   build:
     name: 'Build the project'
-    runs-on: ubuntu-latest
+    runs-on: macos-latest
     outputs:
       tag-name: ${{ steps.tag.outputs.tag }}
     steps:
@@ -48,6 +48,8 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: artifacts
+      - name: copy files to root
+        run: find . -name "*.*" -type f -exec cp {} ./ \;
       - name: 'Create GitHub Release'
         uses: softprops/action-gh-release@v1
         with:
