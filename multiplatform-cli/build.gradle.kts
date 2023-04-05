@@ -9,8 +9,6 @@ application {
     mainClass.set("MainKt")
 }
 
-version = "0.0.1"
-
 kotlin {
     jvm {
         withJava() // Needed for application plugin to find main class
