@@ -6,7 +6,7 @@ import androidx.compose.ui.window.application
 import androidx.compose.ui.window.rememberWindowState
 import di.kodein
 import org.kodein.di.compose.withDI
-import ui.HomeScreen
+import ui.MainScreen
 
 fun main() = application {
     Window(
@@ -16,7 +16,7 @@ fun main() = application {
     ) {
         withDI(di = kodein) {
             MaterialTheme(colorScheme = lightColorScheme()) {
-                HomeScreen()
+                MainScreen()
             }
         }
     }
