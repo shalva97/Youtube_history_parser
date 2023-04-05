@@ -1,4 +1,4 @@
-rootProject.name = "Youtube_history_parser"
+rootProject.name = "Youtube-history-parser"
 include("multiplatform-ui")
 include("parser")
 include("multiplatform-cli")
