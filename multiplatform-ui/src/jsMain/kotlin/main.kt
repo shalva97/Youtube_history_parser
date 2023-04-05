@@ -7,14 +7,14 @@ import di.kodein
 import kotlinx.browser.window
 import org.jetbrains.skiko.wasm.onWasmReady
 import org.kodein.di.compose.withDI
-import ui.HomeScreen
+import ui.MainScreen
 
 fun main() {
     onWasmReady {
         Window {
             withDI(di = kodein) {
                 MaterialTheme(colorScheme = preferredColorScheme()) {
-                    HomeScreen()
+                    MainScreen()
                 }
             }
         }

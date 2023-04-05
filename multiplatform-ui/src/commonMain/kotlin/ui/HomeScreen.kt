@@ -30,7 +30,7 @@ import ui.tabs.StatsScreen
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun HomeScreen() {
+fun MainScreen() {
     val viewModel by localDI().instance<HomeScreenViewModel>()
     var selectedTab by remember { mutableStateOf(HomeTab.HISTORY) }
     val localScope = rememberCoroutineScope()
@@ -81,7 +81,7 @@ fun HomeScreen() {
 }
 
 class HomeScreenViewModel : DIAware {
-    val destinations = HomeTab.values()
+    val destinations = listOf(HomeTab.HISTORY, HomeTab.SETTINGS)
     private val historyFilesRepository by instance<HistoryFilesRepository>()
 
     fun setSelectedFiles(files: List<HistoryFile>) {
