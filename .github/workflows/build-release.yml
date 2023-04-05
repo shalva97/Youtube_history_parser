@@ -22,12 +22,17 @@ jobs:
       - name: 'Build shadow jar'
         uses: gradle/gradle-build-action@v2
         with:
-          arguments: shadowJar
+          arguments: >
+            multiplatform-cli:linkReleaseExecutableLinuxX64
+            multiplatform-cli:linkReleaseExecutableMacosX64
+            multiplatform-cli:shadowJar
       - name: 'Upload Artifacts'
         uses: actions/upload-artifact@v3
         with:
           name: artifacts
-          path: ./build/libs/*-all.jar
+          path: |
+            ./multiplatform-cli/build/bin/
+            ./multiplatform-cli/build/libs/
       - name: 'export version number'
         id: tag
         run: ./gradlew properties -q | grep "version:" | awk '{ print "::set-output name=tag::"$2 }'

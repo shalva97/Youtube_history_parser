@@ -5,9 +5,6 @@ plugins {
     `maven-publish`
 }
 
-group = "me.shalva97"
-version = "2.2.0"
-
 kotlin {
     jvm {
         val main by compilations.getting {

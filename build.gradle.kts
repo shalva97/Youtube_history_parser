@@ -5,3 +5,5 @@ plugins {
     id("org.jetbrains.compose") version "1.3.1" apply false
     id("com.github.johnrengelman.shadow") version "8.1.1" apply false
 }
+
+version = "2.2.1" // required for build-release.yml workflow

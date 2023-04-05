@@ -1,3 +1,5 @@
+import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
+
 plugins {
     kotlin("multiplatform")
     kotlin("plugin.serialization")
@@ -8,8 +10,6 @@ plugins {
 application {
     mainClass.set("MainKt")
 }
-
-version = "0.0.1"
 
 kotlin {
     jvm {
@@ -25,7 +25,7 @@ kotlin {
         binaries {
             executable {
                 entryPoint = "main"
-                baseName = "youtube-history-parser-$version-macosX64"
+                baseName = "${rootProject.name}-${rootProject.version}-macosX64"
             }
         }
     }
@@ -34,7 +34,7 @@ kotlin {
         binaries {
             executable {
                 entryPoint = "main"
-                baseName = "youtube-history-parser-$version-linuxX64"
+                baseName = "${rootProject.name}-${rootProject.version}-linuxX64"
             }
         }
     }
@@ -49,4 +49,8 @@ kotlin {
         }
         val jvmMain by getting
     }
+}
+
+tasks.withType<ShadowJar> {
+    archiveFileName.set("${rootProject.name}-${rootProject.version}.jar")
 }
