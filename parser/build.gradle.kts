@@ -2,6 +2,7 @@ plugins {
     kotlin("multiplatform")
     kotlin("plugin.serialization")
     id("com.adarshr.test-logger")
+    id("com.github.gmazzo.buildconfig")
     `maven-publish`
 }
 
@@ -32,4 +33,8 @@ kotlin {
         val commonTest by getting
         val jsMain by getting
     }
+}
+
+buildConfig {
+    buildConfigField("String", "APP_VERSION", provider { "\"${rootProject.version}\"" })
 }

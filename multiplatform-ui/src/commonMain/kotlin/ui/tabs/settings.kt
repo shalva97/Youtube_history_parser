@@ -1,5 +1,6 @@
 package ui.tabs
 
+import Youtube_history_parser.parser.BuildConfig
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -44,6 +45,9 @@ fun SettingsScreen() {
             }) {
                 Text("Apply")
             }
+        }
+        Row {
+            Text("Version ${BuildConfig.APP_VERSION}")
         }
     }
 }
