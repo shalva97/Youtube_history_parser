@@ -24,6 +24,14 @@ kotlin {
         browser()
         binaries.executable()
     }
+    macosX64 {
+        binaries {
+            executable {
+                entryPoint = "main"
+                baseName = "google-auth-decode-$version-macosX64"
+            }
+        }
+    }
 
     sourceSets {
         val commonMain by getting {
@@ -43,6 +51,7 @@ kotlin {
                 implementation(project(":parser"))
             }
         }
+        val macosX64Main by getting
         val commonTest by getting {
             dependencies {
                 implementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.4")
