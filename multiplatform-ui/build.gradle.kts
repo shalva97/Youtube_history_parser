@@ -15,7 +15,7 @@ kotlin {
             }
             dependencies {
                 implementation(compose.desktop.macos_x64)
-                implementation("com.darkrockstudios:mpfilepicker:1.0.0")
+                implementation("com.darkrockstudios:mpfilepicker:1.2.0")
             }
         }
     }
