@@ -51,7 +51,7 @@ kotlin {
         val jsMain by getting {
             dependencies {
                 implementation(kotlin("stdlib-js"))
-                implementation("org.jetbrains.kotlinx:kotlinx-html:0.8.1")
+                implementation("org.jetbrains.kotlinx:kotlinx-html:0.9.1")
             }
         }
     }
