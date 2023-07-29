@@ -3,7 +3,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.darkColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.ui.window.Window
-import com.darkrockstudios.libraries.mpfilepicker.WebFile
 import di.kodein
 import kotlinx.browser.window
 import org.jetbrains.skiko.wasm.onWasmReady

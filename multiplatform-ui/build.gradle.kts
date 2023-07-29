@@ -7,16 +7,12 @@ plugins {
 
 kotlin {
     jvmToolchain(11)
-    jvm {
-        dependencies {
-            commonMainImplementation(compose.desktop.currentOs)
-        }
-    }
+    jvm()
 
-//    js(IR) {
-//        browser()
-//        binaries.executable()
-//    }
+    js(IR) {
+        browser()
+        binaries.executable()
+    }
 //    macosX64 { // TODO enable macos target
 //        binaries {
 //            executable {
@@ -37,11 +33,8 @@ kotlin {
                 implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4")
                 implementation("org.kodein.di:kodein-di-framework-compose:7.20.1")
                 implementation("org.kodein.di:kodein-di:7.19.0")
-                implementation(compose.ui)
-                implementation(compose.foundation)
                 implementation(compose.materialIconsExtended)
                 implementation(compose.material3)
-                implementation(compose.runtime)
 //                implementation(compose.desktop.currentOs)
                 implementation(project(":parser"))
             }
@@ -57,6 +50,11 @@ kotlin {
 //                implementation("org.jetbrains.kotlinx:kotlinx-html:0.8.1")
 //            }
 //        }
+        val jvmMain by getting {
+            dependencies {
+                implementation(compose.desktop.currentOs)
+            }
+        }
     }
 }
 
