@@ -6,17 +6,7 @@ import org.w3c.files.FileReader
 import kotlin.coroutines.suspendCoroutine
 
 actual fun selectAndParseFilesFromDisk(callback: (historyFile: HistoryFile) -> Unit) {
-//    var showFilePicker by remember { mutableStateOf(false) }
-//    val scope = rememberCoroutineScope()
-//
-//    FilePicker(showFilePicker) { path ->
-//        showFilePicker = false
-//        scope.launch {
-//            val file = path as WebFile
-//            val historyFile = HistoryFile(file.path, file.getFileContents())
-//            callback.invoke(historyFile)
-//        }
-//    }
+    // TODO pick file
 }
 
 suspend fun readFileAsText(file: File) = suspendCoroutine {
