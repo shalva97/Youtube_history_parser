@@ -7,13 +7,8 @@ plugins {
 }
 
 kotlin {
-    jvm {
-        val main by compilations.getting {
-            kotlinOptions {
-                jvmTarget = JavaVersion.VERSION_11.toString()
-            }
-        }
-    }
+    jvmToolchain(11)
+    jvm()
 
     js(IR) {
         browser()
@@ -30,8 +25,6 @@ kotlin {
                 implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.4.0")
             }
         }
-        val commonTest by getting
-        val jsMain by getting
     }
 }
 

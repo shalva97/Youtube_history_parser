@@ -5,13 +5,13 @@ import java.awt.FileDialog
 import java.awt.Frame
 import java.io.File
 
-actual suspend fun selectAndParseFilesFromDisk(): List<HistoryFile> {
+actual fun selectAndParseFilesFromDisk(callback: (historyFile: HistoryFile) -> Unit) {
     val selectedFile = FileDialog(null as? Frame, "Select history file", FileDialog.LOAD).apply {
         directory = System.getProperty("user.home") + "/Downloads/"
         isMultipleMode = true
         isVisible = true
     }
-    return listOf(
+    listOf(
         HistoryFile(selectedFile.file, File(selectedFile.directory, selectedFile.file).readText())
-    )
+    ) // TODO
 }

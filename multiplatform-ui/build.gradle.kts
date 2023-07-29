@@ -1,5 +1,3 @@
-import org.jetbrains.compose.ExperimentalComposeLibrary
-
 plugins {
     kotlin("multiplatform")
     kotlin("plugin.serialization")
@@ -8,34 +6,30 @@ plugins {
 }
 
 kotlin {
+    jvmToolchain(11)
     jvm {
-        val main by compilations.getting {
-            kotlinOptions {
-                jvmTarget = JavaVersion.VERSION_11.toString()
-            }
-            dependencies {
-                implementation(compose.desktop.macos_x64)
-                implementation("com.darkrockstudios:mpfilepicker:1.0.0")
-            }
+        dependencies {
+            commonMainImplementation(compose.desktop.currentOs)
         }
     }
 
-    js(IR) {
-        browser()
-        binaries.executable()
-    }
-    macosX64 {
-        binaries {
-            executable {
-                entryPoint = "main"
-                baseName = "google-auth-decode-$version-macosX64"
-            }
-        }
-    }
+//    js(IR) {
+//        browser()
+//        binaries.executable()
+//    }
+//    macosX64 { // TODO enable macos target
+//        binaries {
+//            executable {
+//                entryPoint = "main"
+//                baseName = "google-auth-decode-$version-macosX64"
+//            }
+//        }
+//    }
 
     sourceSets {
         val commonMain by getting {
             dependencies {
+                implementation("com.darkrockstudios:mpfilepicker:1.2.0")
                 implementation("junit:junit:4.13.2")
                 implementation(kotlin("test-junit"))
                 implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.5.0")
@@ -46,23 +40,23 @@ kotlin {
                 implementation(compose.ui)
                 implementation(compose.foundation)
                 implementation(compose.materialIconsExtended)
-                @OptIn(ExperimentalComposeLibrary::class) implementation(compose.material3)
+                implementation(compose.material3)
                 implementation(compose.runtime)
+//                implementation(compose.desktop.currentOs)
                 implementation(project(":parser"))
             }
         }
-        val macosX64Main by getting
         val commonTest by getting {
             dependencies {
                 implementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.4")
             }
         }
-        val jsMain by getting {
-            dependencies {
-                implementation(kotlin("stdlib-js"))
-                implementation("org.jetbrains.kotlinx:kotlinx-html:0.8.1")
-            }
-        }
+//        val jsMain by getting {
+//            dependencies {
+//                implementation(kotlin("stdlib-js"))
+//                implementation("org.jetbrains.kotlinx:kotlinx-html:0.8.1")
+//            }
+//        }
     }
 }
 

@@ -53,7 +53,9 @@ fun MainScreen() {
             NavigationRail {
                 FloatingActionButton(onClick = {
                     localScope.launch {
-                        viewModel.setSelectedFiles(selectAndParseFilesFromDisk())
+                        selectAndParseFilesFromDisk {
+                            viewModel.setSelectedFiles(listOf(it))
+                        }
                     }
                 }) {
                     Icon(Icons.Filled.Add, contentDescription = "Add")

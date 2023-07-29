@@ -17,9 +17,7 @@ import androidx.compose.ui.input.pointer.onPointerEvent
 import androidx.compose.ui.unit.dp
 import data.HistoryFilesRepository
 import di.kodein
-import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
-import org.jetbrains.skiko.SkikoPointerEvent
 import org.kodein.di.DI
 import org.kodein.di.DIAware
 import org.kodein.di.compose.localDI
@@ -51,5 +49,4 @@ class HistoryScreenViewModel : DIAware {
     val markdownText = historyFilesRepository.markdownText
 }
 
-private fun scrollAmount(it: PointerEvent) =
-    (it.nativeEvent as? SkikoPointerEvent)?.deltaY?.toFloat()
+private fun scrollAmount(it: PointerEvent) = 0f

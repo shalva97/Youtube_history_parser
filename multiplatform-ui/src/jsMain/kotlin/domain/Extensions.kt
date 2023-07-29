@@ -1,6 +1,10 @@
 package domain
 
+import androidx.compose.runtime.*
+import com.darkrockstudios.libraries.mpfilepicker.FilePicker
+import com.darkrockstudios.libraries.mpfilepicker.WebFile
 import kotlinx.browser.document
+import kotlinx.coroutines.launch
 import models.HistoryFile
 import org.w3c.dom.Document
 import org.w3c.dom.HTMLInputElement
@@ -11,31 +15,22 @@ import org.w3c.files.FileReader
 import kotlin.coroutines.resume
 import kotlin.coroutines.suspendCoroutine
 
-actual suspend fun selectAndParseFilesFromDisk(): List<HistoryFile> {
-    return document.selectFilesFromDisk(".json").map { readFileAsText(it) }
+@Composable
+actual suspend fun selectAndParseFilesFromDisk(callback: (historyFile: HistoryFile) -> Unit) {
+    var showFilePicker by remember { mutableStateOf(false) }
+    val scope = rememberCoroutineScope()
+
+    FilePicker(showFilePicker) { path ->
+        showFilePicker = false
+        scope.launch {
+            val file = path as WebFile
+            val historyFile = HistoryFile(file.path, file.getFileContents())
+            callback.invoke(historyFile)
+        }
+    }
 }
 
-private suspend fun Document.selectFilesFromDisk(
-    accept: String
-) = suspendCoroutine {
-    val tempInput = (createElement("input") as HTMLInputElement).apply {
-        type = "file"
-        style.display = "none"
-        this.accept = accept
-        multiple = true
-    }
-
-    tempInput.onchange = { changeEvt ->
-        val files = (changeEvt.target.asDynamic().files as ItemArrayLike<File>).asList()
-        it.resume(files)
-    }
-
-    body!!.append(tempInput)
-    tempInput.click()
-    tempInput.remove()
-}
-
-private suspend fun readFileAsText(file: File) = suspendCoroutine {
+suspend fun readFileAsText(file: File) = suspendCoroutine {
     val reader = FileReader()
     reader.onload = { loadEvt ->
         val content = loadEvt.target.asDynamic().result as String
