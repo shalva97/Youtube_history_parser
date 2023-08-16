@@ -1,5 +1,6 @@
 package domain
 
+import com.darkrockstudios.libraries.mpfilepicker.MPFile
 import models.HistoryFile
 
-expect fun selectAndParseFilesFromDisk(callback: (historyFile: HistoryFile) -> Unit)
+expect suspend fun MPFile<Any>.toDomainModel(): HistoryFile

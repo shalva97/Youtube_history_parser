@@ -6,7 +6,7 @@ plugins {
 }
 
 kotlin {
-    jvmToolchain(11)
+    jvmToolchain(17)
     jvm()
 
     js(IR) {
@@ -25,7 +25,7 @@ kotlin {
     sourceSets {
         val commonMain by getting {
             dependencies {
-                implementation("com.darkrockstudios:mpfilepicker:1.2.0")
+                implementation("com.darkrockstudios:mpfilepicker:2.0.2")
                 implementation("junit:junit:4.13.2")
                 implementation(kotlin("test-junit"))
                 implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.5.0")
