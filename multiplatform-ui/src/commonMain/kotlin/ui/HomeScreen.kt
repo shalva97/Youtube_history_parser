@@ -79,11 +79,9 @@ fun MainScreen() {
         }
     }
 
-    FilePicker(isFileDialogShown, fileExtensions = listOf(".json")) {
+    FilePicker(isFileDialogShown, fileExtensions = listOf("json")) {
         isFileDialogShown = false
-        println("asdfghj11111111111")
         localScope.launch {
-            println("asdfghj")
             viewModel.setSelectedFiles(listOf(it?.toDomainModel() ?: return@launch))
         }
     }
