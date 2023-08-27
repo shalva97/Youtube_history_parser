@@ -13,14 +13,14 @@ kotlin {
         browser()
         binaries.executable()
     }
-//    macosX64 { // TODO enable macos target
-//        binaries {
-//            executable {
-//                entryPoint = "main"
-//                baseName = "google-auth-decode-$version-macosX64"
-//            }
-//        }
-//    }
+    macosX64 { // TODO enable macos target
+        binaries {
+            executable {
+                entryPoint = "main"
+                baseName = "google-auth-decode-$version-macosX64"
+            }
+        }
+    }
 
     sourceSets {
         val commonMain by getting {
