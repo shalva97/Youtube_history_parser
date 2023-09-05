@@ -1,3 +1,5 @@
+@file:Suppress("OPT_IN_USAGE")
+
 plugins {
     kotlin("multiplatform")
     kotlin("plugin.serialization")
@@ -7,6 +9,7 @@ plugins {
 
 kotlin {
     jvmToolchain(17)
+    targetHierarchy.default()
     jvm()
 
     js(IR) {
@@ -35,7 +38,6 @@ kotlin {
                 implementation("org.kodein.di:kodein-di:7.19.0")
                 implementation(compose.materialIconsExtended)
                 implementation(compose.material3)
-//                implementation(compose.desktop.currentOs)
                 implementation(project(":parser"))
             }
         }
@@ -44,15 +46,16 @@ kotlin {
                 implementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.4")
             }
         }
-//        val jsMain by getting {
-//            dependencies {
-//                implementation(kotlin("stdlib-js"))
-//                implementation("org.jetbrains.kotlinx:kotlinx-html:0.8.1")
-//            }
-//        }
+
         val jvmMain by getting {
             dependencies {
                 implementation(compose.desktop.currentOs)
+            }
+        }
+
+        val nativeMain by getting {
+            dependencies {
+                implementation("com.squareup.okio:okio:3.5.0")
             }
         }
     }
