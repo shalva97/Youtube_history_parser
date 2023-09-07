@@ -42,7 +42,7 @@ kotlin {
     sourceSets {
         val commonMain by getting {
             dependencies {
-                implementation("org.jetbrains.kotlinx:kotlinx-cli:0.3.5")
+                implementation("org.jetbrains.kotlinx:kotlinx-cli:0.3.6")
                 implementation(project(":parser"))
                 implementation("com.squareup.okio:okio:3.3.0")
             }
