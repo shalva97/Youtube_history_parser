@@ -39,7 +39,7 @@ jobs:
         with:
           arguments: multiplatform-ui:jsBrowserProductionWebpack
       - name: Upload artifact
-        uses: actions/upload-pages-artifact@v1
+        uses: actions/upload-pages-artifact@v2
         with:
           # Upload entire repository
           path: multiplatform-ui/build/distributions
