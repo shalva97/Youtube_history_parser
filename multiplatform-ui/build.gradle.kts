@@ -1,4 +1,4 @@
-import org.jetbrains.compose.ExperimentalComposeLibrary
+@file:Suppress("OPT_IN_USAGE")
 
 plugins {
     kotlin("multiplatform")
@@ -8,26 +8,27 @@ plugins {
 }
 
 kotlin {
-    jvm {
-        val main by compilations.getting {
-            kotlinOptions {
-                jvmTarget = JavaVersion.VERSION_11.toString()
-            }
-            dependencies {
-                implementation(compose.desktop.macos_x64)
-                implementation("com.darkrockstudios:mpfilepicker:1.0.0")
-            }
-        }
-    }
+    jvmToolchain(17)
+    targetHierarchy.default()
+    jvm()
 
     js(IR) {
         browser()
         binaries.executable()
     }
+    macosX64 { // TODO enable macos target
+        binaries {
+            executable {
+                entryPoint = "main"
+                baseName = "google-auth-decode-$version-macosX64"
+            }
+        }
+    }
 
     sourceSets {
         val commonMain by getting {
             dependencies {
+                implementation("com.darkrockstudios:mpfilepicker:2.0.2")
                 implementation("junit:junit:4.13.2")
                 implementation(kotlin("test-junit"))
                 implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.5.0")
@@ -35,11 +36,8 @@ kotlin {
                 implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4")
                 implementation("org.kodein.di:kodein-di-framework-compose:7.20.1")
                 implementation("org.kodein.di:kodein-di:7.19.0")
-                implementation(compose.ui)
-                implementation(compose.foundation)
                 implementation(compose.materialIconsExtended)
-                @OptIn(ExperimentalComposeLibrary::class) implementation(compose.material3)
-                implementation(compose.runtime)
+                implementation(compose.material3)
                 implementation(project(":parser"))
             }
         }
@@ -48,10 +46,16 @@ kotlin {
                 implementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.4")
             }
         }
-        val jsMain by getting {
+
+        val jvmMain by getting {
             dependencies {
-                implementation(kotlin("stdlib-js"))
-                implementation("org.jetbrains.kotlinx:kotlinx-html:0.8.1")
+                implementation(compose.desktop.currentOs)
+            }
+        }
+
+        val nativeMain by getting {
+            dependencies {
+                implementation("com.squareup.okio:okio:3.5.0")
             }
         }
     }

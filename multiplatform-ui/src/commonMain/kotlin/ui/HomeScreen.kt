@@ -13,9 +13,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalClipboardManager
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.unit.dp
+import com.darkrockstudios.libraries.mpfilepicker.FilePicker
 import data.HistoryFilesRepository
 import di.kodein
-import domain.selectAndParseFilesFromDisk
+import domain.toDomainModel
 import kotlinx.coroutines.launch
 import models.HistoryFile
 import models.HomeTab
@@ -34,6 +35,7 @@ fun MainScreen() {
     val viewModel by localDI().instance<HomeScreenViewModel>()
     var selectedTab by remember { mutableStateOf(HomeTab.HISTORY) }
     val localScope = rememberCoroutineScope()
+    var isFileDialogShown by remember { mutableStateOf(false) }
 
     Scaffold(topBar = {
         TopAppBar({
@@ -52,9 +54,7 @@ fun MainScreen() {
         Row(modifier = Modifier.padding(it)) {
             NavigationRail {
                 FloatingActionButton(onClick = {
-                    localScope.launch {
-                        viewModel.setSelectedFiles(selectAndParseFilesFromDisk())
-                    }
+                    isFileDialogShown = true
                 }) {
                     Icon(Icons.Filled.Add, contentDescription = "Add")
                 }
@@ -76,6 +76,13 @@ fun MainScreen() {
                 HomeTab.DOWNLOADS -> DownloadsScreen()
                 HomeTab.SETTINGS -> SettingsScreen()
             }
+        }
+    }
+
+    FilePicker(isFileDialogShown, fileExtensions = listOf("json")) {
+        isFileDialogShown = false
+        localScope.launch {
+            viewModel.setSelectedFiles(listOf(it?.toDomainModel() ?: return@launch))
         }
     }
 }
