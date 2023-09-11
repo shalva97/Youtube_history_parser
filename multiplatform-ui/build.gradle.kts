@@ -28,7 +28,7 @@ kotlin {
     sourceSets {
         val commonMain by getting {
             dependencies {
-                implementation("com.darkrockstudios:mpfilepicker:2.0.2")
+                implementation("com.darkrockstudios:mpfilepicker:2.1.0")
                 implementation("junit:junit:4.13.2")
                 implementation(kotlin("test-junit"))
                 implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.0")
