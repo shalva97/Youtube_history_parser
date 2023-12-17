@@ -55,7 +55,7 @@ kotlin {
 
         val nativeMain by getting {
             dependencies {
-                implementation("com.squareup.okio:okio:3.5.0")
+                implementation("com.squareup.okio:okio:3.7.0")
             }
         }
     }
