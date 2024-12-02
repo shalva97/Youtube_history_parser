@@ -11,7 +11,6 @@ class VideoStatisticsTest {
     fun toString_returnsCorrectTextWhenVideoIsDeleted() {
         assertEquals(deletedVideoText, someRandomDeletedVideo.toString())
     }
-
 }
 
 private const val statisticsText =
