@@ -45,6 +45,18 @@ kotlin {
             implementation(compose.components.uiToolingPreview)
             implementation(libs.androidx.lifecycle.viewmodel)
             implementation(libs.androidx.lifecycle.runtime.compose)
+            implementation("io.github.vinceglb:filekit-core:0.8.7")
+            implementation("io.github.vinceglb:filekit-compose:0.8.7")
+            implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.7.3")
+            implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.6.1")
+            implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.9.0")
+            implementation("org.kodein.di:kodein-di-framework-compose:7.23.1")
+            implementation("org.kodein.di:kodein-di:7.23.1")
+            implementation(project(":parser"))
+        }
+        commonTest.dependencies {
+            implementation(kotlin("test"))
+            implementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.9.0")
         }
         desktopMain.dependencies {
             implementation(compose.desktop.currentOs)
@@ -59,68 +71,12 @@ compose.desktop {
         mainClass = "org.example.project.MainKt"
 
         nativeDistributions {
+            linux {
+                modules("jdk.security.auth")
+            }
             targetFormats(TargetFormat.Dmg, TargetFormat.Msi, TargetFormat.Deb)
             packageName = "org.example.project"
             packageVersion = "1.0.0"
         }
     }
 }
-
-//
-//kotlin {
-//    jvmToolchain(17)
-//    targetHierarchy.default()
-//    jvm()
-//
-//    js(IR) {
-//        browser()
-//        binaries.executable()
-//    }
-//    macosX64 { // TODO enable macos target
-//        binaries {
-//            executable {
-//                entryPoint = "main"
-//                baseName = "google-auth-decode-$version-macosX64"
-//            }
-//        }
-//    }
-//
-//    sourceSets {
-//        val commonMain by getting {
-//            dependencies {
-//                implementation("com.darkrockstudios:mpfilepicker:2.1.0")
-//                implementation("junit:junit:4.13.2")
-//                implementation(kotlin("test-junit"))
-//                implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.0")
-//                implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.4.1")
-//                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3")
-//                implementation("org.kodein.di:kodein-di-framework-compose:7.20.2")
-//                implementation("org.kodein.di:kodein-di:7.20.2")
-//                implementation(compose.materialIconsExtended)
-//                implementation(compose.material3)
-//                implementation(project(":parser"))
-//            }
-//        }
-//        val commonTest by getting {
-//            dependencies {
-//                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.3")
-//            }
-//        }
-//
-//        val jvmMain by getting {
-//            dependencies {
-//                implementation(compose.desktop.currentOs)
-//            }
-//        }
-//
-//        val nativeMain by getting {
-//            dependencies {
-//                implementation("com.squareup.okio:okio:3.5.0")
-//            }
-//        }
-//    }
-//}
-//
-//compose.experimental {
-//    web.application {}
-//}
