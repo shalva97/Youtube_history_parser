@@ -1,3 +1,5 @@
+@file:OptIn(ExperimentalMaterial3Api::class)
+
 package ui
 
 import androidx.compose.foundation.isSystemInDarkTheme
@@ -5,20 +7,21 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.FloatingActionButton
-import androidx.compose.material.Icon
-import androidx.compose.material.IconButton
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.NavigationRail
-import androidx.compose.material.NavigationRailItem
-import androidx.compose.material.Scaffold
-import androidx.compose.material.Text
-import androidx.compose.material.TopAppBar
-import androidx.compose.material.darkColors
+import androidx.compose.material3.FloatingActionButton
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.NavigationRail
+import androidx.compose.material3.NavigationRailItem
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.darkColorScheme
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.CopyAll
-import androidx.compose.material.lightColors
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalClipboardManager
@@ -26,7 +29,11 @@ import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.unit.dp
 import data.HistoryFilesRepository
 import di.kodein
-import domain.toDomainModel
+import io.github.vinceglb.filekit.core.FileKit
+import io.github.vinceglb.filekit.core.PickerMode
+import io.github.vinceglb.filekit.core.PickerType
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import models.HistoryFile
 import models.HomeTab
@@ -40,19 +47,10 @@ import ui.tabs.SettingsScreen
 import ui.tabs.StatsScreen
 
 @Composable
-fun App() {
-    MaterialTheme(colors = if (isSystemInDarkTheme()) darkColors() else lightColors()) {
-        MainScreen()
-    }
-}
-
-@Composable
-private fun MainScreen(modifier: Modifier = Modifier) {
+fun MainScreen() {
     val viewModel by localDI().instance<HomeScreenViewModel>()
     var selectedTab by remember { mutableStateOf(HomeTab.HISTORY) }
-    val localScope = rememberCoroutineScope()
-    var isFileDialogShown by remember { mutableStateOf(false) }
-    
+
     Scaffold(topBar = {
         TopAppBar({
             Text("Youtube History Parser")
@@ -70,7 +68,7 @@ private fun MainScreen(modifier: Modifier = Modifier) {
         Row(modifier = Modifier.padding(it)) {
             NavigationRail {
                 FloatingActionButton(onClick = {
-                    isFileDialogShown = true
+                    viewModel.setSelectedFiles()
                 }) {
                     Icon(Icons.Filled.Add, contentDescription = "Add")
                 }
@@ -94,21 +92,29 @@ private fun MainScreen(modifier: Modifier = Modifier) {
             }
         }
     }
-
-    FilePicker(isFileDialogShown, fileExtensions = listOf("json")) {
-        isFileDialogShown = false
-        localScope.launch {
-            viewModel.setSelectedFiles(listOf(it?.toDomainModel() ?: return@launch))
-        }
-    }
 }
 
 class HomeScreenViewModel : DIAware {
     val destinations = listOf(HomeTab.HISTORY, HomeTab.SETTINGS)
     private val historyFilesRepository by instance<HistoryFilesRepository>()
+    private val scope = CoroutineScope(Dispatchers.Default)
 
-    fun setSelectedFiles(files: List<HistoryFile>) {
-        historyFilesRepository.selectedFiles.tryEmit(files)
+    fun setSelectedFiles() = scope.launch {
+
+        val file = FileKit.pickFile(
+            type = PickerType.File(listOf("json")),
+            mode = PickerMode.Single,
+            title = "Pick JSON file",
+        )
+
+        historyFilesRepository.selectedFiles.tryEmit(
+            listOf(
+                HistoryFile(
+                    fileName = file?.name ?: return@launch,
+                    contents = file.readBytes().decodeToString()
+                )
+            )
+        )
     }
 
     fun getHistoryAsMarkdown() = historyFilesRepository.markdownText.value

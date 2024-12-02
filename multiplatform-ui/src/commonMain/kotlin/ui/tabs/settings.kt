@@ -1,9 +1,7 @@
 package ui.tabs
 
-import Youtube_history_parser.parser.BuildConfig
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.Button
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.*
@@ -14,7 +12,6 @@ import data.SettingsRepo
 import org.kodein.di.compose.localDI
 import org.kodein.di.instance
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SettingsScreen() {
 
@@ -47,7 +44,7 @@ fun SettingsScreen() {
             }
         }
         Row {
-            Text("Version ${BuildConfig.APP_VERSION}")
+//            Text("Version ${BuildConfig.APP_VERSION}") // TODO add version
         }
     }
 }

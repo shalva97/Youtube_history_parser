@@ -1,5 +1,3 @@
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.lightColors
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.application
@@ -14,10 +12,6 @@ fun main() = application {
         title = "Youtube history",
         state = rememberWindowState(width = 700.dp, height = 400.dp)
     ) {
-        withDI(di = kodein) {
-            MaterialTheme(colors = lightColors()) {
-                App()
-            }
-        }
+        App()
     }
 }

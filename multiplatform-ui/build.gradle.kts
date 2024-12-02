@@ -11,8 +11,9 @@ plugins {
 
 
 kotlin {
-    jvm("desktop")
-
+    jvmToolchain(17)
+    jvm("desktop") 
+    
     @OptIn(ExperimentalWasmDsl::class)
     wasmJs {
         moduleName = "composeApp"
@@ -39,7 +40,7 @@ kotlin {
         commonMain.dependencies {
             implementation(compose.runtime)
             implementation(compose.foundation)
-            implementation(compose.material)
+            implementation(compose.material3)
             implementation(compose.materialIconsExtended)
             implementation(compose.ui)
             implementation(compose.components.resources)
@@ -69,7 +70,7 @@ kotlin {
 
 compose.desktop {
     application {
-        mainClass = "org.example.project.MainKt"
+        mainClass = "MainKt"
 
         nativeDistributions {
             linux {
