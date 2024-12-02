@@ -35,7 +35,7 @@ kotlin {
                 implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.5.0")
                 implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3")
                 implementation("org.kodein.di:kodein-di-framework-compose:7.20.2")
-                implementation("org.kodein.di:kodein-di:7.20.2")
+                implementation("org.kodein.di:kodein-di:7.21.2")
                 implementation(compose.materialIconsExtended)
                 implementation(compose.material3)
                 implementation(project(":parser"))
