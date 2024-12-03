@@ -10,14 +10,16 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import data.HistoryFilesRepository
+import data.HistoryFilesRepositoryState
 import di.kodein
+import kotlinx.coroutines.flow.map
 import org.kodein.di.DI
 import org.kodein.di.DIAware
 import org.kodein.di.compose.localDI
 import org.kodein.di.instance
 
 @Composable
-fun HistoryScreen() {
+fun MarkdownHistoryScreen() {
 
     val viewModel by localDI().instance<HistoryScreenViewModel>()
 
@@ -33,5 +35,12 @@ fun HistoryScreen() {
 class HistoryScreenViewModel : DIAware {
     override val di: DI = kodein
     private val historyFilesRepository by instance<HistoryFilesRepository>()
-    val markdownText = historyFilesRepository.markdownText
+    
+    val markdownText = historyFilesRepository.history.map { 
+        when (it) {
+            is HistoryFilesRepositoryState.Error -> it.error
+            HistoryFilesRepositoryState.Loading -> "Loading..."
+            is HistoryFilesRepositoryState.Success -> it.history.toString()
+        }
+    }
 }

@@ -4,8 +4,6 @@ import org.jetbrains.kotlin.gradle.targets.js.webpack.KotlinWebpackConfig
 
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
-    alias(libs.plugins.composeMultiplatform)
-    alias(libs.plugins.composeCompiler)
     kotlin("plugin.serialization")
     `maven-publish`
 }
@@ -37,8 +35,6 @@ kotlin {
         val desktopMain by getting
 
         commonMain.dependencies {
-            implementation(libs.androidx.lifecycle.viewmodel)
-            implementation(libs.androidx.lifecycle.runtime.compose)
             implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.7.3")
             implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.6.1")
         }
@@ -46,7 +42,6 @@ kotlin {
             implementation(kotlin("test"))
         }
         desktopMain.dependencies {
-            implementation(compose.desktop.currentOs)
             implementation(libs.kotlinx.coroutines.swing)
         }
     }

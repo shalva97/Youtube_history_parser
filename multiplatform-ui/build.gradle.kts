@@ -12,7 +12,7 @@ plugins {
 
 kotlin {
     jvmToolchain(17)
-    jvm("desktop") 
+    jvm("desktop")
     
     @OptIn(ExperimentalWasmDsl::class)
     wasmJs {

@@ -2,7 +2,6 @@
 
 package ui
 
-import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
@@ -10,18 +9,15 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationRail
 import androidx.compose.material3.NavigationRailItem
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
-import androidx.compose.material3.darkColorScheme
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.CopyAll
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalClipboardManager
@@ -41,8 +37,9 @@ import org.kodein.di.DI
 import org.kodein.di.DIAware
 import org.kodein.di.compose.localDI
 import org.kodein.di.instance
+import ui.tabs.composeHistory.ComposeHistoryScreen
 import ui.tabs.DownloadsScreen
-import ui.tabs.HistoryScreen
+import ui.tabs.MarkdownHistoryScreen
 import ui.tabs.SettingsScreen
 import ui.tabs.StatsScreen
 
@@ -85,17 +82,18 @@ fun MainScreen() {
                 }
             }
             when (selectedTab) {
-                HomeTab.HISTORY -> HistoryScreen()
-                HomeTab.STATS -> StatsScreen()
+                HomeTab.HISTORY -> MarkdownHistoryScreen()
+                HomeTab.MARKDOWN_HISTORY -> StatsScreen()
                 HomeTab.DOWNLOADS -> DownloadsScreen()
                 HomeTab.SETTINGS -> SettingsScreen()
+                HomeTab.COMPOSE_HISTORY -> ComposeHistoryScreen()
             }
         }
     }
 }
 
 class HomeScreenViewModel : DIAware {
-    val destinations = listOf(HomeTab.HISTORY, HomeTab.SETTINGS)
+    val destinations = listOf(HomeTab.COMPOSE_HISTORY, HomeTab.HISTORY, HomeTab.SETTINGS)
     private val historyFilesRepository by instance<HistoryFilesRepository>()
     private val scope = CoroutineScope(Dispatchers.Default)
 
@@ -117,7 +115,7 @@ class HomeScreenViewModel : DIAware {
         )
     }
 
-    fun getHistoryAsMarkdown() = historyFilesRepository.markdownText.value
+    fun getHistoryAsMarkdown() = historyFilesRepository.history.value.toString()
 
     override val di: DI = kodein
 }

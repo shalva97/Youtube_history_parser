@@ -9,7 +9,8 @@ import androidx.compose.ui.graphics.vector.ImageVector
 
 enum class HomeTab(val title: String, val icon: ImageVector) {
     HISTORY("History", Icons.Rounded.History),
-    STATS("Stats", Icons.Rounded.Insights),
+    COMPOSE_HISTORY("Compose History", Icons.Rounded.History),
+    MARKDOWN_HISTORY("Markdown", Icons.Rounded.Insights),
     DOWNLOADS("Downloads", Icons.Rounded.Download),
     SETTINGS("Settings", Icons.Rounded.Settings);
 }

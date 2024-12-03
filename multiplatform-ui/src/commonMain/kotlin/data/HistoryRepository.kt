@@ -19,21 +19,36 @@ class HistoryFilesRepository : DIAware {
 
     val selectedFiles: MutableStateFlow<List<HistoryFile>> = MutableStateFlow(emptyList())
 
-    val markdownText =
-        selectedFiles.combine(settingsRepo.minimumAmountOfVideoClicks, ::YoutubeHistoryParams)
-            .map(::parseHistoryToMarkdown)
-            .stateIn(historyFilesRepositoryScope, SharingStarted.Lazily, "")
+    val history: StateFlow<HistoryFilesRepositoryState> = selectedFiles
+        .combine(settingsRepo.minimumAmountOfVideoClicks, ::YoutubeHistoryParams)
+        .map(::parseHistory)
+        .stateIn(
+            historyFilesRepositoryScope,
+            SharingStarted.Lazily,
+            HistoryFilesRepositoryState.Loading
+        )
 
-    private fun parseHistoryToMarkdown(youtubeHistoryParams: YoutubeHistoryParams): String {
+    private fun parseHistory(youtubeHistoryParams: YoutubeHistoryParams): HistoryFilesRepositoryState {
         return try {
             val first = youtubeHistoryParams.historyFiles.first() // TODO support multiple files
-            YoutubeHistory(first.contents, youtubeHistoryParams.amount).toString()
+            HistoryFilesRepositoryState.Success(
+                YoutubeHistory(
+                    jsonData = first.contents,
+                    minVideoClicks = youtubeHistoryParams.amount
+                )
+            )
         } catch (e: NoSuchElementException) {
-            "No files selected"
+            HistoryFilesRepositoryState.Error("No files selected")
         } catch (e: Exception) {
-            e.message ?: "Unkown error"
+            HistoryFilesRepositoryState.Error(e.message ?: "Unkown error")
         }
     }
+}
+
+sealed interface HistoryFilesRepositoryState {
+    data object Loading : HistoryFilesRepositoryState
+    data class Error(val error: String) : HistoryFilesRepositoryState
+    data class Success(val history: YoutubeHistory) : HistoryFilesRepositoryState
 }
 
 private data class YoutubeHistoryParams(val historyFiles: List<HistoryFile>, val amount: Int)

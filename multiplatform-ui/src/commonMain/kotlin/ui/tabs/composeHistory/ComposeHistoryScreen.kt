@@ -1,5 +1,6 @@
-package ui.tabs
+package ui.tabs.composeHistory
 
+import YoutubeHistory
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
@@ -37,7 +38,7 @@ fun ComposeHistoryScreen() {
                 Text("Loading...")
             }
             is HistoryFilesRepositoryState.Success -> {
-                value.history
+                value.history.toCompose()
             }
         }
     }
