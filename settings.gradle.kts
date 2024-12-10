@@ -1,6 +1,7 @@
 rootProject.name = "Youtube-history-parser"
 include("multiplatform-ui")
 include("parser")
+include("previews")
 
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 
