@@ -7,7 +7,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.myapplication.ui.theme.MyApplicationTheme
 
-val json = YoutubeHistory.parseVideoHistoryJSON(TODO())
+val json = YoutubeHistory.parseVideoHistoryJSON(sampleData)
 
 @Preview(showBackground = true)
 @Composable

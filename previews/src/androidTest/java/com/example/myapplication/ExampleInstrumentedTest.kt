@@ -1,5 +1,9 @@
 package com.example.myapplication
 
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4
 
@@ -21,4 +25,10 @@ class ExampleInstrumentedTest {
         val appContext = InstrumentationRegistry.getInstrumentation().targetContext
         assertEquals("com.example.myapplication", appContext.packageName)
     }
+}
+
+@Preview
+@Composable
+fun AbstractApplier(modifier: Modifier = Modifier) {
+    Text("aaaaaa")
 }

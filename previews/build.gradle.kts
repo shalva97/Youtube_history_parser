@@ -58,4 +58,5 @@ dependencies {
     debugImplementation(libs.androidx.ui.test.manifest)
     implementation(projects.multiplatformUi)
     implementation(projects.parser)
+    implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.6.1")
 }
