@@ -34,10 +34,10 @@ jobs:
           java-version: 21
           distribution: temurin
           cache: 'gradle'
-      - name: 'Build native executables'
+      - name: 'Setup Gradle'
         uses: gradle/actions/setup-gradle@v4
-        with:
-          arguments: multiplatform-ui:wasmJsBrowserProductionWebpack
+      - name: Assemble the project
+        run: ./gradlew multiplatform-ui:wasmJsBrowserProductionWebpack
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
