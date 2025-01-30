@@ -37,7 +37,7 @@ jobs:
       - name: 'Build native executables'
         uses: gradle/gradle-build-action@v2
         with:
-          arguments: multiplatform-ui:jsBrowserProductionWebpack
+          arguments: multiplatform-ui:wasmJsBrowserProductionWebpack
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v2
         with:
