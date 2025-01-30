@@ -11,7 +11,6 @@ plugins {
 
 
 kotlin {
-    jvmToolchain(17)
     jvm("desktop")
     
     @OptIn(ExperimentalWasmDsl::class)

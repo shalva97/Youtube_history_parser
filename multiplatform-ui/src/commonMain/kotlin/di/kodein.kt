@@ -1,5 +1,6 @@
 package di
 
+import YoutubeHistory
 import data.HistoryFilesRepository
 import data.SettingsRepo
 import kotlinx.coroutines.CoroutineDispatcher
@@ -9,12 +10,14 @@ import org.kodein.di.bindProvider
 import org.kodein.di.bindSingleton
 import ui.HomeScreenViewModel
 import ui.tabs.HistoryScreenViewModel
+import ui.tabs.composeHistory.ComposeHistoryScreenViewModel
 
 expect fun mainDispatcher(): CoroutineDispatcher
 
 val kodein = DI {
     bindSingleton { SettingsRepo() }
     bindSingleton { HistoryScreenViewModel() }
+    bindSingleton { ComposeHistoryScreenViewModel() }
     bindSingleton { HomeScreenViewModel() }
     bindSingleton { HistoryFilesRepository() }
     bindProvider(tag = DEFAULT) { Dispatchers.Default }

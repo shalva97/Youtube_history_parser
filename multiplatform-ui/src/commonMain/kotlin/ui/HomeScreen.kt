@@ -46,13 +46,13 @@ import ui.tabs.StatsScreen
 @Composable
 fun MainScreen() {
     val viewModel by localDI().instance<HomeScreenViewModel>()
-    var selectedTab by remember { mutableStateOf(HomeTab.HISTORY) }
+    var selectedTab by remember { mutableStateOf(HomeTab.COMPOSE_HISTORY) }
 
     Scaffold(topBar = {
         TopAppBar({
             Text("Youtube History Parser")
         }, actions = {
-            if (selectedTab == HomeTab.HISTORY) {
+            if (selectedTab == HomeTab.MARKDOWN_HISTORY) {
                 val clipboardManager = LocalClipboardManager.current
                 IconButton({
                     clipboardManager.setText(AnnotatedString(viewModel.getHistoryAsMarkdown()))
@@ -82,18 +82,18 @@ fun MainScreen() {
                 }
             }
             when (selectedTab) {
-                HomeTab.HISTORY -> MarkdownHistoryScreen()
-                HomeTab.MARKDOWN_HISTORY -> StatsScreen()
+                HomeTab.MARKDOWN_HISTORY -> MarkdownHistoryScreen()
+                HomeTab.COMPOSE_HISTORY -> ComposeHistoryScreen()
+                HomeTab.STATS -> StatsScreen()
                 HomeTab.DOWNLOADS -> DownloadsScreen()
                 HomeTab.SETTINGS -> SettingsScreen()
-                HomeTab.COMPOSE_HISTORY -> ComposeHistoryScreen()
             }
         }
     }
 }
 
 class HomeScreenViewModel : DIAware {
-    val destinations = listOf(HomeTab.COMPOSE_HISTORY, HomeTab.HISTORY, HomeTab.SETTINGS)
+    val destinations = listOf(HomeTab.COMPOSE_HISTORY, HomeTab.MARKDOWN_HISTORY, HomeTab.SETTINGS)
     private val historyFilesRepository by instance<HistoryFilesRepository>()
     private val scope = CoroutineScope(Dispatchers.Default)
 

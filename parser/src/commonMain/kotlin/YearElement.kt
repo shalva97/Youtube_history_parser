@@ -4,12 +4,13 @@ import kotlinx.datetime.toLocalDateTime
 import models.VideoStatistics
 
 class YearElement(video: VideoStatistics, private val minVideoClicks: Int) {
-
-    private val history: MutableList<MonthElement> = mutableListOf()
+    private val _history: MutableList<MonthElement> = mutableListOf()
+    val history: List<MonthElement>
+        get() = _history.sortedBy { it.firstTimeWatched }
     val year: Int = formatDateAsYear(video.firstTimeWatched)
 
     init {
-        history.add(MonthElement(video, minVideoClicks))
+        _history.add(MonthElement(video, minVideoClicks))
     }
 
     fun addMonth(video: VideoStatistics) {
@@ -18,14 +19,14 @@ class YearElement(video: VideoStatistics, private val minVideoClicks: Int) {
         if (currentMonth != null) {
             currentMonth.addVideo(video)
         } else {
-            history.add(MonthElement(video, minVideoClicks))
+            _history.add(MonthElement(video, minVideoClicks))
         }
     }
 
     override fun toString(): String {
         val output = StringBuilder()
         output.appendLine("## $year _ ${history.sumOf { it.totalVideosWatched }}")
-        history.sortedBy { it.firstTimeWatched }.forEach {
+        history.forEach {
             output.appendLine()
             output.append(it)
         }

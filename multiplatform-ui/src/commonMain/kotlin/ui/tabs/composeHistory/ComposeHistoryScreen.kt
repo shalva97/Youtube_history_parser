@@ -24,11 +24,9 @@ import org.kodein.di.instance
 fun ComposeHistoryScreen() {
     val viewModel by localDI().instance<ComposeHistoryScreenViewModel>()
 
-    val scrollState = rememberScrollState()
     val history by viewModel.markdownText.collectAsState()
     Column(
         modifier = Modifier.padding(horizontal = 16.dp)
-            .verticalScroll(scrollState)
     ) {
         when (val value = history) {
             is HistoryFilesRepositoryState.Error -> {
@@ -38,7 +36,7 @@ fun ComposeHistoryScreen() {
                 Text("Loading...")
             }
             is HistoryFilesRepositoryState.Success -> {
-                value.history.toCompose()
+                value.history.ToCompose()
             }
         }
     }

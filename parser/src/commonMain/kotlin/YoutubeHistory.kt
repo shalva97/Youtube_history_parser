@@ -88,7 +88,7 @@ class YoutubeHistory(
             }
         }
     }
-
+    
     companion object {
         fun parseVideoHistoryJSON(text: String): List<YoutubeVideo> {
             val parser = Json {

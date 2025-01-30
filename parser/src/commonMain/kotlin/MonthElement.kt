@@ -7,30 +7,32 @@ class MonthElement(video: VideoStatistics, private val minVideoClicks: Int = 0) 
 
     val monthName: String = getMonthName(video)
     val firstTimeWatched = getDate(video)
-    private val videos: MutableList<VideoStatistics> = mutableListOf(video)
+    private val _videos: MutableList<VideoStatistics> = mutableListOf(video)
+    val videos: List<VideoStatistics>
+        get() = _videos
+            .filter { it.timesClicked > minVideoClicks }
+            .sortedByDescending { it.timesClicked }
     val totalVideosWatched get() = videos.sumOf { it.timesClicked }
 
     fun addVideo(video: VideoStatistics) {
-        videos.add(video)
+        _videos.add(video)
     }
 
     override fun toString(): String {
         val stringBuilder = StringBuilder()
         stringBuilder.appendLine("### $monthName _ $totalVideosWatched")
         stringBuilder.appendLine()
-
-        videos.filter { it.timesClicked > minVideoClicks }
-            .sortedByDescending { it.timesClicked }
-            .forEach { video ->
-                stringBuilder.appendLine(video)
-            }
+        
+        videos.forEach { video ->
+            stringBuilder.appendLine(video)
+        }
 
         return stringBuilder.toString()
     }
 
     companion object {
         fun getMonthName(video: VideoStatistics): String {
-            return video.firstTimeWatched.toLocalDateTime(TimeZone.UTC).month.name
+            return video.firstTimeWatched.toLocalDateTime(TimeZone.UTC).month.name.lowercase()
         }
 
         private fun getDate(video: VideoStatistics): LocalDateTime {

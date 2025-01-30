@@ -8,9 +8,9 @@ import androidx.compose.material.icons.rounded.Settings
 import androidx.compose.ui.graphics.vector.ImageVector
 
 enum class HomeTab(val title: String, val icon: ImageVector) {
-    HISTORY("History", Icons.Rounded.History),
-    COMPOSE_HISTORY("Compose History", Icons.Rounded.History),
-    MARKDOWN_HISTORY("Markdown", Icons.Rounded.Insights),
+    MARKDOWN_HISTORY("Markdown", Icons.Rounded.History),
+    COMPOSE_HISTORY("Compose", Icons.Rounded.History),
+    STATS("Stats", Icons.Rounded.Insights),
     DOWNLOADS("Downloads", Icons.Rounded.Download),
     SETTINGS("Settings", Icons.Rounded.Settings);
 }
