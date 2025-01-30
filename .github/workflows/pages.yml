@@ -38,11 +38,15 @@ jobs:
         uses: gradle/actions/setup-gradle@v4
       - name: Assemble the project
         run: ./gradlew multiplatform-ui:wasmJsBrowserProductionWebpack
+      - name: Copy project files
+        run: |
+          cp -r multiplatform-ui/build/kotlin-webpack/wasmJs/productionExecutable/* multiplatformApp
+          cp -r multiplatform-ui/build/processedResources/wasmJs/main/* multiplatformApp
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
           # Upload entire repository
-          path: multiplatform-ui/build/distributions
+          path: multiplatformApp
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@main
