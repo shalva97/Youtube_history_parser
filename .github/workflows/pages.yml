@@ -35,11 +35,11 @@ jobs:
           distribution: temurin
           cache: 'gradle'
       - name: 'Build native executables'
-        uses: gradle/gradle-build-action@v2
+        uses: gradle/gradle-build-action@v3
         with:
           arguments: multiplatform-ui:wasmJsBrowserProductionWebpack
       - name: Upload artifact
-        uses: actions/upload-pages-artifact@v2
+        uses: actions/upload-pages-artifact@v3
         with:
           # Upload entire repository
           path: multiplatform-ui/build/distributions
