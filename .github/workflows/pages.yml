@@ -40,6 +40,7 @@ jobs:
         run: ./gradlew multiplatform-ui:wasmJsBrowserProductionWebpack
       - name: Copy project files
         run: |
+          mkdir -p multiplatformApp
           cp -r multiplatform-ui/build/kotlin-webpack/wasmJs/productionExecutable/* multiplatformApp
           cp -r multiplatform-ui/build/processedResources/wasmJs/main/* multiplatformApp
       - name: Upload artifact
